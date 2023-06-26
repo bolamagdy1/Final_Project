@@ -1,3 +1,6 @@
+using Final_Project.Models;
+using Microsoft.EntityFrameworkCore;
+
 namespace Final_Project
 {
     public class Program
@@ -8,7 +11,11 @@ namespace Final_Project
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-
+            builder.Services.AddDbContext<AppDbContext>
+            (
+            options => options
+            .UseSqlServer("Server=.;Database=final_project;Trusted_connection=true;TrustServerCertificate=true")
+            );
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
