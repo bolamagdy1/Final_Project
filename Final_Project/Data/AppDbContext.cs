@@ -1,16 +1,18 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Final_Project.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
-namespace Final_Project.Models
+namespace Final_Project.Data
 {
-    public class AppDbContext:DbContext
+    public class AppDbContext : IdentityDbContext<ApplicationUser>
     {
         public AppDbContext()
         {
-            
+
         }
-        public AppDbContext(DbContextOptions options):base(options)
+        public AppDbContext(DbContextOptions options) : base(options)
         {
-            
+
         }
         public DbSet<Applicant> applicants { get; set; }
         public DbSet<Applicant_Course> As_Cs { get; set; }

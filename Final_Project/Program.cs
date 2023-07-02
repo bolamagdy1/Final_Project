@@ -1,4 +1,8 @@
+using Final_Project.Data;
+using Final_Project.Migrations;
 using Final_Project.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Final_Project
@@ -16,6 +20,16 @@ namespace Final_Project
             options => options
             .UseSqlServer("Server=.;Database=final_project;Trusted_connection=true;TrustServerCertificate=true")
             );
+
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
+            builder.Services.AddMemoryCache();
+
+            builder.Services.AddSession();
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            });
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -24,16 +38,23 @@ namespace Final_Project
                 app.UseExceptionHandler("/Home/Error");
             }
             app.UseStaticFiles();
-
+            
             app.UseRouting();
+            app.UseSession();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
+
+            AppDbInitializer.SeedRolesToDatabase(app).Wait();
+
             app.Run();
+
+            
         }
     }
 }
