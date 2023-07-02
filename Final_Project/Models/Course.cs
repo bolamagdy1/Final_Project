@@ -1,13 +1,25 @@
-﻿namespace Final_Project.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Final_Project.Models
 {
     public class Course
     {
         public int CourseId { get; set; }
+        [Display(Name ="Course Name")]
+        [MinLength(6)]
         public string CourseName { get; set; }
-        public string Image { get; set; }
+        [Display(Name ="Image")]
+        public byte[] Image { get; set; }
+        [Display(Name = "Course Description")]
+        [MinLength (6)]
         public string CourseDescription { get; set; }
+        [Display(Name = "Course Content")]
+        [MinLength(6)]
         public string Content { get; set; }
+        [Display(Name ="Course Price")]
         public double Price { get; set; }
+        [Display(Name ="Category")]
+        public string Type { get; set; }
 
         //Relation
         public List<Course_Videos> C_Vs { get; set; }

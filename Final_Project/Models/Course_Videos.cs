@@ -1,11 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Final_Project.Models
 {
     public class Course_Videos
     {
         public int Id { get; set; }
-        public string Videos { get; set; }
+        [Display(Name ="Video")]
+        public byte[] Videos { get; set; }
 
         //Relation
         [ForeignKey("Course")]

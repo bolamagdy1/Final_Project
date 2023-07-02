@@ -1,5 +1,4 @@
 using Final_Project.Data;
-using Final_Project.Migrations;
 using Final_Project.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
