@@ -17,7 +17,7 @@ namespace Final_Project.Controllers
         {
             return View();
         }
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "applicant")]
         public IActionResult Privacy()
         {
             return View();

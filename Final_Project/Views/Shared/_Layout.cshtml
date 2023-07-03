@@ -23,9 +23,12 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        @if (User.IsInRole("applicant"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                        }
                         @if (!User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
@@ -36,9 +39,11 @@
                         </li>
                         }
                         else{
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Applicant" asp-action="Logout">Logout</a>
-                        </li>
+                            <form asp-controller="Applicant" asp-action="Logout">
+                                <button class="btn btn-outline-danger my-2 my-sm-0">
+                                    <i class="bi bi-box-arrow-in-right"></i> Log out
+                                </button>
+                            </form>
                         }
                     </ul>
                 </div>

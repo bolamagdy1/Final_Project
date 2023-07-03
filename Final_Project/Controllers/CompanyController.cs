@@ -22,12 +22,12 @@ namespace Final_Project.Controllers
             return View();
         }
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult CreateCompany()
         {
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Create(Company company, IFormCollection formFile)
+        public async Task<IActionResult> CreateCompany(Company company, IFormCollection formFile)
         {
             //applicant.Picture = Convert.ToBase64String(formFile);
             //formFile.CopyTo(applicant.Picture)
@@ -51,17 +51,17 @@ namespace Final_Project.Controllers
                 await _userManager.AddToRoleAsync(newUser, UserRoles.Company);
 
             var temp = new MemoryStream();
-            var test = formFile.Files.FirstOrDefault();
+            var test = formFile.Files[0];
             test.CopyTo(temp);
             company.Logo = temp.ToArray();
 
             var temp2 = new MemoryStream();
-            var test2 = formFile.Files.LastOrDefault();
+            var test2 = formFile.Files[1];
             test2.CopyTo(temp2);
             company.Doc1 = temp2.ToArray();
 
             var temp3 = new MemoryStream();
-            var test3 = formFile.Files.LastOrDefault();
+            var test3 = formFile.Files[2];
             test3.CopyTo(temp3);
             company.Doc2 = temp3.ToArray();
 
