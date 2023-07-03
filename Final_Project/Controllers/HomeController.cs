@@ -1,5 +1,7 @@
 ﻿using Final_Project.Data;
 using Final_Project.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Final_Project.Controllers
@@ -7,7 +9,7 @@ namespace Final_Project.Controllers
     public class HomeController : Controller
     {
         AppDbContext _context;
-        public HomeController(AppDbContext context)
+        public HomeController( AppDbContext context)
         {
             _context = context;
         }
@@ -15,40 +17,19 @@ namespace Final_Project.Controllers
         {
             return View();
         }
+        [Authorize(Roles = "admin")]
         public IActionResult Privacy()
         {
             return View();
         }
-        [HttpGet]
-        public IActionResult Create()
-        {
-            return View();
-        }
-        [HttpPost]
-        public IActionResult Create(Applicant applicant,IFormCollection formFile)
-        {
-            //applicant.Picture = Convert.ToBase64String(formFile);
-            //formFile.CopyTo(applicant.Picture)
-
-
-            var temp = new MemoryStream();
-            //formFile.Files.ToArray();
-            var test =  formFile.Files.FirstOrDefault();
-            test.CopyTo(temp);
-            applicant.Picture = temp.ToArray();
-
-
-            _context.applicants.Add(applicant);
-            _context.SaveChanges();
-            return RedirectToAction("Index");
-        }
-        [HttpGet]
-        public IActionResult Details(int id)
-        {
-            var applicant = _context.applicants.FirstOrDefault(i => i.ApplicantId == id);
-            //Stream stream 
-            ViewBag.img = System.Text.Encoding.Default.GetString(applicant.Picture);
-            return View(applicant);
-        }
+        
+        //[HttpGet]
+        //public IActionResult Details(int id)
+        //{
+        //    var applicant = _context.applicants.FirstOrDefault(i => i.ApplicantId == id);
+        //    //Stream stream 
+        //    ViewBag.img = System.Text.Encoding.Default.GetString(applicant.Picture);
+        //    return View(applicant);
+        //}
     }
 }

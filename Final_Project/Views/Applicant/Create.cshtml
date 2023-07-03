@@ -18,6 +18,21 @@
                 <span asp-validation-for="ApplicantName" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="EmailAddress" class="control-label"></label>
+                <input asp-for="EmailAddress" class="form-control" />
+                <span asp-validation-for="EmailAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ConfirmPassword" class="control-label"></label>
+                <input asp-for="ConfirmPassword" class="form-control" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Picture" class="control-label"></label>
                 <input type="file" asp-for="Picture" class="form-control" />
                 <span asp-validation-for="Picture" class="text-danger"></span>
@@ -44,7 +59,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="CV" class="control-label"></label>
-                <input asp-for="CV" class="form-control" />
+                <input type="file" asp-for="CV" class="form-control" />
                 <span asp-validation-for="CV" class="text-danger"></span>
             </div>
             <div class="form-group">
