@@ -25,7 +25,10 @@
             <div class="form-group">
                 <label asp-for="EmailAddress" class="control-label"></label>
                 <input asp-for="EmailAddress" class="form-control" />
-                <span asp-validation-for="EmailAddress" class="text-danger"></span>
+                @if (TempData["Error"] != null)
+                {
+                    <span asp-validation-for="EmailAddress" class="text-danger">@TempData["Error"]</span>
+                }
             </div>
             <div class="form-group">
                 <label asp-for="Password" class="control-label"></label>
@@ -52,11 +55,18 @@
                 <input type="file" asp-for="Doc2" class="form-control" />
                 <span asp-validation-for="Doc2" class="text-danger"></span>
             </div>
+            <div class="form-group" hidden>
+                <input asp-for="Trusted" value="False" class="form-control" />
+            </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>
+    @if (TempData["joseph"] != null)
+    {
+        <span class="text-danger">@TempData["joseph"]</span>
+    }
 </div>
 
 <div>

@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Final_Project.Models.Company>
+
+@{
+    ViewData["Title"] = "List_Companies";
+}
+
+<h1>List_Companies</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Logo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CompanyName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Doc1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Doc2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Trusted)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Logo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CompanyName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Doc1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Doc2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Trusted)
+            </td>
+            <td>
+                <a asp-action="Approve" asp-route-id="@item.CompanyId">approve</a> |
+                <a asp-action="Details" asp-route-id="@item.CompanyId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.CompanyId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

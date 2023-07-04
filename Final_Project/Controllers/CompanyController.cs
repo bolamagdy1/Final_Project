@@ -3,6 +3,8 @@ using Final_Project.Data;
 using Final_Project.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Final_Project.Controllers
 {
@@ -49,6 +51,11 @@ namespace Final_Project.Controllers
 
             if (newUserResponse.Succeeded)
                 await _userManager.AddToRoleAsync(newUser, UserRoles.Company);
+            else
+            {
+                TempData["joseph"] = newUserResponse;
+                return View(company);
+            }
 
             var temp = new MemoryStream();
             var test = formFile.Files[0];
@@ -65,6 +72,8 @@ namespace Final_Project.Controllers
             test3.CopyTo(temp3);
             company.Doc2 = temp3.ToArray();
 
+            var sameuser = await _userManager.FindByEmailAsync(company.EmailAddress);
+            company.Password = sameuser.PasswordHash;
 
             _context.companies.Add(company);
             _context.SaveChanges();
@@ -78,6 +87,7 @@ namespace Final_Project.Controllers
             if (!ModelState.IsValid) return View(loginVM);
 
             var user = await _userManager.FindByEmailAsync(loginVM.Email);
+            TempData["abdo"] = user.Email;
             if (user != null)
             {
                 var passwordCheck = await _userManager.CheckPasswordAsync(user, loginVM.Password);
@@ -100,6 +110,45 @@ namespace Final_Project.Controllers
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        [Authorize(Roles ="company")]
+        public IActionResult Post()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Post(Job job)
+        {
+            var company = _context.companies.FirstOrDefault(e => e.EmailAddress == TempData["abdo"]);
+            job.CompanyId = company.CompanyId;
+            _context.jobs.Add(job);
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Home");
+        }
+        [HttpGet]
+        [Authorize(Roles =("company"))]
+        public IActionResult myjobs()
+        {
+            var company = _context.companies.FirstOrDefault(e => e.EmailAddress == TempData["abdo"]);
+            var jobs = _context.jobs.Where(c=>c.CompanyId == company.CompanyId).ToList();
+            return View(jobs);
+        }
+        [HttpGet]
+        public IActionResult EditPost(int id)
+        {
+            var job = _context.jobs.FirstOrDefault(i => i.JobId == id);
+            return View(job);
+        }
+        [HttpPost]
+        public IActionResult EditPost(Job job)
+        {
+            var company = _context.companies.FirstOrDefault(e => e.EmailAddress == TempData["abdo"]);
+            job.CompanyId = company.CompanyId;
+            _context.jobs.Update(job);
+            _context.SaveChanges();
             return RedirectToAction("Index", "Home");
         }
     }

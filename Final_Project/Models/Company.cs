@@ -33,6 +33,8 @@ namespace Final_Project.Models
         [Display(Name = "Tax card")]
         public byte[] Doc2 { get; set; }
 
+        public bool Trusted { get; set; }
+
 
         public List<Job> Jobs { get; set; }
 

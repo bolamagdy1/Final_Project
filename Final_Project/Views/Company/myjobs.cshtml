@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<Final_Project.Models.Job>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "myjobs";
 }
 
-<h1>Index</h1>
+<h1>myjobs</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -23,9 +23,6 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.DeadLine)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Company.CompanyName)
             </th>
             <th></th>
         </tr>
@@ -46,7 +43,9 @@
                 @Html.DisplayFor(modelItem => item.DeadLine)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Company.CompanyName)
+                <a asp-action="EditPost" asp-route-id="@item.JobId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.JobId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.JobId">Delete</a>
             </td>
         </tr>
 }

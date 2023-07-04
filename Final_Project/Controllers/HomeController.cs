@@ -3,6 +3,7 @@ using Final_Project.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Final_Project.Controllers
 {
@@ -15,7 +16,8 @@ namespace Final_Project.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            var jobs = _context.jobs.Include(c=>c.Company).ToList();
+            return View(jobs);
         }
         [Authorize(Roles = "applicant")]
         public IActionResult Privacy()

@@ -4,6 +4,7 @@ using Final_Project.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Final_Project.Controllers
 {
@@ -51,6 +52,12 @@ namespace Final_Project.Controllers
             if (newUserResponse.Succeeded)
                 await _userManager.AddToRoleAsync(newUser, UserRoles.Applicant);
 
+            else
+            {
+                TempData["bola"] = newUserResponse;
+                return View(applicant);
+            }
+
             var temp = new MemoryStream();
             var test = formFile.Files.FirstOrDefault();
             test.CopyTo(temp);
@@ -77,6 +84,7 @@ namespace Final_Project.Controllers
             if (!ModelState.IsValid) return View(loginVM);
 
             var user = await _userManager.FindByEmailAsync(loginVM.Email);
+            TempData["abdo"] = user.Email;
             if (user != null)
             {
                 var passwordCheck = await _userManager.CheckPasswordAsync(user, loginVM.Password);

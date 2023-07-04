@@ -71,6 +71,10 @@
             </div>
         </form>
     </div>
+    @if (TempData["bola"] != null)
+    {
+        <span class="text-danger">@TempData["bola"]</span>
+    }
 </div>
 
 <div>

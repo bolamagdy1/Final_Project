@@ -13,8 +13,10 @@ namespace Final_Project.Models
         [MinLength (6)]
         public string Jop_Description { get; set; }
         [Display(Name ="Job Requrements")]
+        [Required]
         public string Jop_Requrement { get; set; }
         [Display(Name = "Dead Line")]
+        [Required]
         public DateTime DeadLine { get; set; }
 
         [ForeignKey("Company")]
