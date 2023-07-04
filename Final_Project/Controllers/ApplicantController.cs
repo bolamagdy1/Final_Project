@@ -106,6 +106,7 @@ namespace Final_Project.Controllers
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
+            TempData["abdo"] = null;
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
