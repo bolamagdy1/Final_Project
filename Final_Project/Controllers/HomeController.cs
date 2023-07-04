@@ -16,7 +16,17 @@ namespace Final_Project.Controllers
         }
         public IActionResult Index()
         {
-            var jobs = _context.jobs.Include(c=>c.Company).ToList();
+            var applicant = _context.applicants.FirstOrDefault(e => e.EmailAddress == TempData.Peek("abdo"));
+            var jobss = _context.applicants_jobs.Include(j=>j.Job)
+                .Where(a=>a.ApplicantId == applicant.ApplicantId).ToList();
+
+            var jobs= _context.jobs.Include(i=>i.Company).ToList();
+
+            foreach (var job in jobss)
+            {
+                jobs.Remove(job.Job);
+            }
+            //apps_jobs.
             return View(jobs);
         }
         [Authorize(Roles = "applicant")]

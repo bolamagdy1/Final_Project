@@ -109,5 +109,22 @@ namespace Final_Project.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+        [HttpPost]
+        public IActionResult Apply(int id)
+        {
+            var applicant = _context.applicants.FirstOrDefault(e => e.EmailAddress == TempData.Peek("abdo"));
+            var job = _context.jobs.FirstOrDefault(i => i.JobId == id);
+            Applicant_Job applicant_job = new Applicant_Job() { ApplicantId = applicant.ApplicantId, JobId = job.JobId };
+            _context.applicants_jobs.Add(applicant_job);
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Home");
+        }
+        public IActionResult MyApplies()
+        {
+            var applicant = _context.applicants.FirstOrDefault(e => e.EmailAddress == TempData.Peek("abdo"));
+            var jobss = _context.applicants_jobs.Include(j => j.Job).Include(j=>j.Job.Company)
+                .Where(a => a.ApplicantId == applicant.ApplicantId).ToList();
+            return View(jobss);
+        }
     }
 }

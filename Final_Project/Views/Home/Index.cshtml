@@ -27,7 +27,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Company.CompanyName)
             </th>
-            <th></th>
+            <th>actions</th>
         </tr>
     </thead>
     <tbody>
@@ -48,6 +48,16 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Company.CompanyName)
             </td>
+                @if (User.IsInRole("applicant"))
+                {
+                    <td>
+                    <form asp-controller="Applicant" asp-action="Apply" asp-route-id="@item.JobId">
+                        <button class="btn btn-outline-primary my-2 my-sm-0">
+                            <i class="bi bi-box-arrow-in-right"></i> Apply
+                        </button>
+                        </form>
+                    </td>
+                }
         </tr>
 }
     </tbody>

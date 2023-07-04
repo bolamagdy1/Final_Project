@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Final_Project.Models.Applicant_Job>
+
+@{
+    ViewData["Title"] = "MyApplies";
+}
+
+<h1>MyApplies</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Job.Jop_Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Job.Jop_Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Job.Jop_Requrement)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Job.DeadLine)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Job.Company)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                    @Html.DisplayFor(modelItem => item.Job.Jop_Title)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.Job.Jop_Description)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.Job.Jop_Requrement)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.Job.DeadLine)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.Job.Company.CompanyName)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
