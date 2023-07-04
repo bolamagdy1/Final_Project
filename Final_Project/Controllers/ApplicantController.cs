@@ -61,6 +61,9 @@ namespace Final_Project.Controllers
             test2.CopyTo(temp2);
             applicant.CV = temp2.ToArray();
 
+            var sameuser = await _userManager.FindByEmailAsync(applicant.EmailAddress);
+            applicant.Password = sameuser.PasswordHash;
+
 
             _context.applicants.Add(applicant);
             _context.SaveChanges();
