@@ -122,7 +122,8 @@ namespace Final_Project.Controllers
         [HttpPost]
         public IActionResult Post(Job job)
         {
-            var company = _context.companies.FirstOrDefault(e => e.EmailAddress == TempData["abdo"]);
+
+            var company = _context.companies.FirstOrDefault(e => e.EmailAddress == TempData.Peek("abdo"));
             job.CompanyId = company.CompanyId;
             _context.jobs.Add(job);
             _context.SaveChanges();
@@ -132,7 +133,7 @@ namespace Final_Project.Controllers
         [Authorize(Roles =("company"))]
         public IActionResult myjobs()
         {
-            var company = _context.companies.FirstOrDefault(e => e.EmailAddress == TempData["abdo"]);
+            var company = _context.companies.FirstOrDefault(e => e.EmailAddress == TempData.Peek("abdo"));
             var jobs = _context.jobs.Where(c=>c.CompanyId == company.CompanyId).ToList();
             return View(jobs);
         }
