@@ -214,17 +214,17 @@ namespace Final_Project.Controllers
 
             using (MailMessage mail = new MailMessage())
             {
-                mail.From = new MailAddress("bolamagdy085@gmail.com");
-                mail.To.Add("abdalrhmanyasser@icloud.com");
+                mail.From = new MailAddress("josephabdou95@gmail.com");
+                mail.To.Add("bolamagdy085@gmail.com");
                 mail.Subject = "Hello World";
-                mail.Body = "<h1>Hello</h1>";
-                mail.IsBodyHtml = true;
+                mail.Body = "Hello";
+                //mail.IsBodyHtml = true;
                 //mail.Attachments.Add(new Attachment("C:\\file.zip"));
 
                 using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
                 {
                     smtp.UseDefaultCredentials = false;
-                    smtp.Credentials = new NetworkCredential("bolamagdy085@gmail.com", "");
+                    smtp.Credentials = new NetworkCredential("josephabdou95@gmail.com", "Password");
                     smtp.EnableSsl = true;
                     smtp.Send(mail);
                 }
