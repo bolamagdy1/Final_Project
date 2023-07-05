@@ -183,52 +183,24 @@ namespace Final_Project.Controllers
         }
         public IActionResult Waiting(int id)
         {
-            //var app_job = _context.applicants_jobs.Include(a=>a.Applicant).FirstOrDefault(i => i.Id == id);
-            //_context.applicants_jobs.Remove(app_job);
-            //_context.SaveChanges();
+            string fromMail = "bolamagdy085@gmail.com";
+            string fromPassword = "";
 
+            MailMessage message = new MailMessage();
+            message.From = new MailAddress(fromMail);
+            message.Subject = "Test Subject";
+            message.To.Add(new MailAddress("abdalrhmanyasser@icloud.com"));
+            message.Body = "<html><body> Hello From VS </body></html>";
+            message.IsBodyHtml = true;
 
-            //MailMessage message = new MailMessage();
-
-            //// Set the sender email address
-            //message.From = new MailAddress("bolamagdy085@gmail.com");
-
-            //// Set the recipient email address
-            //message.To.Add("abdalrhmanyasser@icloud.com");
-
-            //// Set the email subject and body
-            //message.Subject = "Hello from Bola";
-            //message.Body = "This is a test email sent from C#.";
-
-            //// Create a new SmtpClient object
-            //SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
-
-            //// Set the SMTP client credentials
-            //smtpClient.Credentials = new NetworkCredential("bolamagdy085@gmail.com", "pass");
-
-            //// Enable SSL encryption
-            //smtpClient.EnableSsl = true;
-
-            //// Send the email
-            //smtpClient.Send(message);
-
-            using (MailMessage mail = new MailMessage())
+            var smtpClient = new SmtpClient("smtp.gmail.com")
             {
-                mail.From = new MailAddress("josephabdou95@gmail.com");
-                mail.To.Add("bolamagdy085@gmail.com");
-                mail.Subject = "Hello World";
-                mail.Body = "Hello";
-                //mail.IsBodyHtml = true;
-                //mail.Attachments.Add(new Attachment("C:\\file.zip"));
+                Port = 587,
+                Credentials = new NetworkCredential(fromMail, fromPassword),
+                EnableSsl = true,
+            };
 
-                using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
-                {
-                    smtp.UseDefaultCredentials = false;
-                    smtp.Credentials = new NetworkCredential("josephabdou95@gmail.com", "Password");
-                    smtp.EnableSsl = true;
-                    smtp.Send(mail);
-                }
-            }
+            smtpClient.Send(message);
 
 
 
