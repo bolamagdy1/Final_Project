@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Final_Project.Models.Applicant_Course>
+
+@{
+    ViewData["Title"] = "MyCourses";
+}
+
+<h1>MyCourses</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Applicant)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Course)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Applicant.ConfirmPassword)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Course.CourseId)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

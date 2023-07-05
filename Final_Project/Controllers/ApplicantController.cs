@@ -127,5 +127,13 @@ namespace Final_Project.Controllers
                 .Where(a => a.ApplicantId == applicant.ApplicantId).ToList();
             return View(jobss);
         }
+        public IActionResult MyCourses()
+        {
+            var applicant = _context.applicants.FirstOrDefault(e => e.EmailAddress == TempData.Peek("abdo"));
+            var courses = _context.As_Cs.Include(j => j.Course).Include(j => j.Applicant)
+                .Where(a => a.ApplicantId == applicant.ApplicantId).ToList();
+            return View(courses);
+
+        }
     }
 }
