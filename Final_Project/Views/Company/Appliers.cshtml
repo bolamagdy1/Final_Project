@@ -15,7 +15,7 @@
     var job = group.FirstOrDefault()?.Job;
     if (job != null)
     {
-        <h3 style="text-align=center">job.Jop_Title</h3>
+        <h3 style="text-align:center">@job.Jop_Title</h3>
 
         <table class="table">
             <thead>
@@ -70,9 +70,9 @@
             @Html.DisplayFor(modelItem => applicantJob.Applicant.CV)
             </td>*@
                         <td>
-                            <a asp-action="Edit" asp-route-id="@applicantJob.ApplicantId">Edit</a> |
-                            <a asp-action="Details" asp-route-id="@applicantJob.ApplicantId">Details</a> |
-                            <a asp-action="Delete" asp-route-id="@applicantJob.ApplicantId">Delete</a>
+                            <a href="mailto:@applicantJob.Applicant.EmailAddress">Mail</a> |
+                            <a asp-action="Waiting" asp-route-id="@applicantJob.Id">Accept</a> |
+                            <a asp-action="Waiting" asp-route-id="@applicantJob.Id">Reject</a>
                         </td>
                     </tr>
                 }
