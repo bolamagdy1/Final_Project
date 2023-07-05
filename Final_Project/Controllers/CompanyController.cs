@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using Microsoft.EntityFrameworkCore;
 
 namespace Final_Project.Controllers
 {
@@ -151,6 +152,32 @@ namespace Final_Project.Controllers
             _context.jobs.Update(job);
             _context.SaveChanges();
             return RedirectToAction("Index", "Home");
+        }
+        [HttpGet]
+        public IActionResult Appliers() 
+        {
+            var company = _context.companies.FirstOrDefault(e => e.EmailAddress == TempData["abdo"]);
+            var jobs = _context.jobs.Where(e => e.CompanyId == company.CompanyId).ToList();
+
+            List<Applicant_Job> apps_jobs = new List<Applicant_Job>();
+
+            string[] arr = new string[apps_jobs.Count];
+
+            foreach (var job in jobs)
+            {
+                apps_jobs = _context.applicants_jobs.Include(j => j.Job).Where(a => a.JobId == job.JobId).ToList();
+                arr.Append(job.Jop_Title);
+                //ViewBag.bola = 
+            }
+            ViewBag.bola = new List<string>();
+                ViewBag.bola = arr;
+            var applicants = _context.applicants_jobs
+                .Include(a => a.Applicant)
+                .Include(a => a.Job)
+                .ThenInclude(j => j.Company)
+                .Where(ww=>ww.Job.CompanyId == company.CompanyId)
+                .ToList();
+            return View(applicants);
         }
     }
 }
