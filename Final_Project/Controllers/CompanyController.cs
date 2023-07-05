@@ -148,7 +148,7 @@ namespace Final_Project.Controllers
         [HttpPost]
         public IActionResult EditPost(Job job)
         {
-            var company = _context.companies.FirstOrDefault(e => e.EmailAddress == TempData["abdo"]);
+            var company = _context.companies.FirstOrDefault(e => e.EmailAddress == TempData.Peek("abdo"));
             job.CompanyId = company.CompanyId;
             _context.jobs.Update(job);
             _context.SaveChanges();
@@ -157,7 +157,7 @@ namespace Final_Project.Controllers
         [HttpGet]
         public IActionResult Appliers() 
         {
-            var company = _context.companies.FirstOrDefault(e => e.EmailAddress == TempData["abdo"]);
+            var company = _context.companies.FirstOrDefault(e => e.EmailAddress == TempData.Peek("abdo"));
             var jobs = _context.jobs.Where(e => e.CompanyId == company.CompanyId).ToList();
 
             List<Applicant_Job> apps_jobs = new List<Applicant_Job>();
