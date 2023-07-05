@@ -9,71 +9,77 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Applicant.ApplicantName)
-            </th>
-            @*<th>
-                @Html.DisplayNameFor(model => model.Applicant.Picture)
+
+@foreach (var group in Model.GroupBy(item => item.JobId))
+{
+    var job = group.FirstOrDefault()?.Job;
+    if (job != null)
+    {
+        <h3>@job.Jop_Title</h3>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Applicant.ApplicantName)
+                    </th>
+                    @*<th>
+            @Html.DisplayNameFor(model => model.Applicant.Picture)
             </th>*@
-            <th>
-                @Html.DisplayNameFor(model => model.Applicant.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Job.Jop_Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Applicant.Phone)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Applicant.Age)
-            </th>
-            @*<th>
-                @Html.DisplayNameFor(model => model.Applicant.CV)
+                    <th>
+                        @Html.DisplayNameFor(model => model.Applicant.Title)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Job.Jop_Title)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Applicant.Phone)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Applicant.Age)
+                    </th>
+                    @*<th>
+            @Html.DisplayNameFor(model => model.Applicant.CV)
             </th>*@
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item2 in ViewBag.bola)
-        {
-            <h2>@item2</h2>
-            @foreach (var item in Model)
-            {
-                if (item.Job.Jop_Title == item2)
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var applicantJob in group)
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Applicant.ApplicantName)
+                            @Html.DisplayFor(modelItem => applicantJob.Applicant.ApplicantName)
                         </td>
                         @*<td>
-                    @Html.DisplayFor(modelItem => item.Applicant.Picture)
+            @Html.DisplayFor(modelItem => applicantJob.Applicant.Picture)
             </td>*@
                         <td>
-                            @Html.DisplayFor(modelItem => item.Applicant.Title)
+                            @Html.DisplayFor(modelItem => applicantJob.Applicant.Title)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Job.Jop_Title)
+                            @Html.DisplayFor(modelItem => applicantJob.Job.Jop_Title)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Applicant.Phone)
+                            @Html.DisplayFor(modelItem => applicantJob.Applicant.Phone)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Applicant.Age)
+                            @Html.DisplayFor(modelItem => applicantJob.Applicant.Age)
                         </td>
                         @*<td>
-                    @Html.DisplayFor(modelItem => item.Applicant.CV)
+            @Html.DisplayFor(modelItem => applicantJob.Applicant.CV)
             </td>*@
                         <td>
-                            <a asp-action="Edit" asp-route-id="@item.ApplicantId">Edit</a> |
-                            <a asp-action="Details" asp-route-id="@item.ApplicantId">Details</a> |
-                            <a asp-action="Delete" asp-route-id="@item.ApplicantId">Delete</a>
+                            <a asp-action="Edit" asp-route-id="@applicantJob.ApplicantId">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@applicantJob.ApplicantId">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@applicantJob.ApplicantId">Delete</a>
                         </td>
                     </tr>
                 }
-            }
-        }
-    </tbody>
-</table>
+            </tbody>
+        </table>
+    }
+}
+
+
+
