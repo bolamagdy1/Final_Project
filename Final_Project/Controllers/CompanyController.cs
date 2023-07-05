@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Authorization;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using Microsoft.EntityFrameworkCore;
 using NuGet.Packaging;
+using System.Net.Mail;
+using System.Net;
 
 namespace Final_Project.Controllers
 {
@@ -168,7 +170,6 @@ namespace Final_Project.Controllers
             {
                 apps_jobs = _context.applicants_jobs.Include(j => j.Job).Where(a => a.JobId == job.JobId).ToList();
                 arr.Append(job.Jop_Title);
-                //ViewBag.bola = 
             }
             ViewBag.bola = new List<string>();
                 ViewBag.bola = arr;
@@ -179,6 +180,59 @@ namespace Final_Project.Controllers
                 .Where(ww=>ww.Job.CompanyId == company.CompanyId)
                 .ToList();
             return View(applicants);
+        }
+        public IActionResult Waiting(int id)
+        {
+            //var app_job = _context.applicants_jobs.Include(a=>a.Applicant).FirstOrDefault(i => i.Id == id);
+            //_context.applicants_jobs.Remove(app_job);
+            //_context.SaveChanges();
+
+
+            //MailMessage message = new MailMessage();
+
+            //// Set the sender email address
+            //message.From = new MailAddress("bolamagdy085@gmail.com");
+
+            //// Set the recipient email address
+            //message.To.Add("abdalrhmanyasser@icloud.com");
+
+            //// Set the email subject and body
+            //message.Subject = "Hello from Bola";
+            //message.Body = "This is a test email sent from C#.";
+
+            //// Create a new SmtpClient object
+            //SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
+
+            //// Set the SMTP client credentials
+            //smtpClient.Credentials = new NetworkCredential("bolamagdy085@gmail.com", "pass");
+
+            //// Enable SSL encryption
+            //smtpClient.EnableSsl = true;
+
+            //// Send the email
+            //smtpClient.Send(message);
+
+            using (MailMessage mail = new MailMessage())
+            {
+                mail.From = new MailAddress("bolamagdy085@gmail.com");
+                mail.To.Add("abdalrhmanyasser@icloud.com");
+                mail.Subject = "Hello World";
+                mail.Body = "<h1>Hello</h1>";
+                mail.IsBodyHtml = true;
+                //mail.Attachments.Add(new Attachment("C:\\file.zip"));
+
+                using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
+                {
+                    smtp.UseDefaultCredentials = false;
+                    smtp.Credentials = new NetworkCredential("bolamagdy085@gmail.com", "");
+                    smtp.EnableSsl = true;
+                    smtp.Send(mail);
+                }
+            }
+
+
+
+            return RedirectToAction("Appliers");
         }
     }
 }
