@@ -29,6 +29,14 @@ namespace Final_Project
                 options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
             });
 
+            builder.Services.AddSingleton(x =>
+            new PaypalClient(
+            builder.Configuration["PayPalOptions:ClientId"],
+            builder.Configuration["PayPalOptions:ClientSecret"],
+            builder.Configuration["PayPalOptions:Mode"]
+        )
+    );
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
