@@ -14,13 +14,24 @@ namespace Final_Project.Controllers
         {
             _context = context;
         }
-        public IActionResult Index()
+        public IActionResult GetAllForApplicant()
         {
             var applicant = _context.applicants.FirstOrDefault(e => e.EmailAddress == TempData.Peek("abdo"));
-            var Courses = _context.As_Cs.Include(c=>c.Course).Where(c=>c.ApplicantId != applicant.ApplicantId).ToList();
+            var coursess = _context.As_Cs.Include(c => c.Course).Where(c => c.ApplicantId == applicant.ApplicantId).ToList();
+            var courses = _context.courses.ToList();
+
+            foreach (var course in coursess)
+            {
+                courses.Remove(course.Course);
+            }
+
+            return View(courses);
+        }
+        public IActionResult GetAllForAdmin()
+        {
+            var Courses = _context.courses.ToList();
             return View(Courses);
         }
-
         [Authorize(Roles ="admin")]
         [HttpGet]
         public IActionResult CreateCourse()
@@ -36,7 +47,7 @@ namespace Final_Project.Controllers
             course.Image = temp.ToArray();
             _context.courses.Add( course );
             _context.SaveChanges();
-            return RedirectToAction("Index", "HomeCourses");
+            return RedirectToAction("GetAllForAdmin", "HomeCourses");
         }
         [HttpGet]
         public IActionResult adding(int id)
@@ -46,7 +57,7 @@ namespace Final_Project.Controllers
             Applicant_Course Applicant_Course = new Applicant_Course() { ApplicantId = applicant.ApplicantId, CourseId = course.CourseId };
             _context.As_Cs.Add(Applicant_Course);
             _context.SaveChanges();
-            return RedirectToAction("Index", "HomeCourses");
+            return RedirectToAction("GetAllForApplicant", "HomeCourses");
         }
         public IActionResult MyApplies()
         {

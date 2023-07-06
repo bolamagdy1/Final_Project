@@ -20,7 +20,7 @@ namespace Final_Project.Models
         [Display(Name ="Course Price")]
         public double Price { get; set; }
         [Display(Name ="Category")]
-        public Categories Categories { get; set; }
+        public Category Category { get; set; }
 
         //Relation
         public List<Course_Videos> C_Vs { get; set; }

@@ -28,7 +28,7 @@
                 @Html.DisplayNameFor(model => model.Course.Price)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Course.Type)
+                @Html.DisplayNameFor(model => model.Course.Category)
             </th>
             <th></th>
         </tr>
@@ -52,7 +52,7 @@
                     @Html.DisplayFor(modelItem => item.Course.Price)
             </td>
             <td>
-                    @Html.DisplayFor(modelItem => item.Course.Type)
+                    @Html.DisplayFor(modelItem => item.Course.Category)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.CourseId">Edit</a> |
