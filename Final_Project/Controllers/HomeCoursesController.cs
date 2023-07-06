@@ -54,11 +54,25 @@ namespace Final_Project.Controllers
         {
             var applicant = _context.applicants.FirstOrDefault(e => e.EmailAddress == TempData.Peek("abdo"));
             var course = _context.courses.FirstOrDefault(i => i.CourseId == id);
-            Applicant_Course Applicant_Course = new Applicant_Course() { ApplicantId = applicant.ApplicantId, CourseId = course.CourseId };
-            _context.As_Cs.Add(Applicant_Course);
-            _context.SaveChanges();
-            return RedirectToAction("GetAllForApplicant", "HomeCourses");
+            if (course.Price > 0)
+            {
+                pay();
+                return RedirectToAction("GetAllForApplicant", "HomeCourses");
+            }
+            else
+            {
+                Applicant_Course Applicant_Course = new Applicant_Course() { ApplicantId = applicant.ApplicantId, CourseId = course.CourseId };
+                _context.As_Cs.Add(Applicant_Course);
+                _context.SaveChanges();
+                return RedirectToAction("GetAllForApplicant", "HomeCourses");
+            }
         }
+
+        private void pay()
+        {
+            
+        }
+
         public IActionResult MyApplies()
         {
             var applicant = _context.applicants.FirstOrDefault(e => e.EmailAddress == TempData.Peek("abdo"));

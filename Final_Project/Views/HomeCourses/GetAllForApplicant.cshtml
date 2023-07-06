@@ -56,9 +56,7 @@
                     @Html.DisplayFor(modelItem => item.Category)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.CourseId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.CourseId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.CourseId">Delete</a>
+                    <a asp-action="adding" asp-route-id="@item.CourseId">Apply</a> 
                 </td>
             </tr>
         }
