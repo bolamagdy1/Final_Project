@@ -16,10 +16,13 @@ namespace Final_Project.Controllers
         }
         public IActionResult Index()
         {
-            var Courses = _context.courses.ToList();
+            var applicant = _context.applicants.FirstOrDefault(e => e.EmailAddress == TempData.Peek("abdo"));
+            var Courses = _context.As_Cs.Include(c=>c.Course).Where(c=>c.ApplicantId != applicant.ApplicantId).ToList();
             return View(Courses);
         }
-        
+
+        [Authorize(Roles ="admin")]
+        [HttpGet]
         public IActionResult CreateCourse()
         {
             return View();
@@ -35,7 +38,7 @@ namespace Final_Project.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index", "HomeCourses");
         }
-        [HttpPost]
+        [HttpGet]
         public IActionResult adding(int id)
         {
             var applicant = _context.applicants.FirstOrDefault(e => e.EmailAddress == TempData.Peek("abdo"));
@@ -52,6 +55,5 @@ namespace Final_Project.Controllers
                 .Where(a => a.ApplicantId == applicant.ApplicantId).ToList();
             return View(Course);
         }
-
     }
 }

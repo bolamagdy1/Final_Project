@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Final_Project.Data.Category;
+using System.ComponentModel.DataAnnotations;
 
 namespace Final_Project.Models
 {
@@ -6,7 +7,7 @@ namespace Final_Project.Models
     {
         public int CourseId { get; set; }
         [Display(Name ="Course Name")]
-        [MinLength(6)]
+        [MinLength(3)]
         public string CourseName { get; set; }
         [Display(Name ="Image")]
         public byte[] Image { get; set; }
@@ -19,7 +20,7 @@ namespace Final_Project.Models
         [Display(Name ="Course Price")]
         public double Price { get; set; }
         [Display(Name ="Category")]
-        public string Type { get; set; }
+        public Categories Categories { get; set; }
 
         //Relation
         public List<Course_Videos> C_Vs { get; set; }

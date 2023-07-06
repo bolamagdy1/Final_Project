@@ -13,10 +13,12 @@ namespace Final_Project.Models
 
         [Display(Name = "Email address")]
         [Required(ErrorMessage = "Email address is required")]
+        [EmailAddress(ErrorMessage = "Invalid Email Adderss")]
         public string EmailAddress { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$", ErrorMessage = "Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character")]
         public string Password { get; set; }
 
         [Display(Name = "Confirm password")]

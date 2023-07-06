@@ -121,7 +121,11 @@ namespace Final_Project.Controllers
         [Authorize(Roles ="company")]
         public IActionResult Post()
         {
-            return View();
+            var company = _context.companies.FirstOrDefault(e => e.EmailAddress == TempData.Peek("abdo"));
+            if (company.Trusted == true)
+                return View();
+            else
+                return RedirectToAction("Index", "Home");
         }
         [HttpPost]
         public IActionResult Post(Job job)
