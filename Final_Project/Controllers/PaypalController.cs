@@ -15,7 +15,7 @@ namespace Final_Project.Controllers
         public IActionResult Index()
         {
             // ViewBag.ClientId is used to get the Paypal Checkout javascript SDK
-            ViewBag.ClientId = "AciJN35r05hG5oaPQI19GqPlh4fHd3OX3LPbLjvu8J1n87KDMf21_wp-V_okmA_jSNOJql91U_H06wxD";
+            //ViewBag.ClientId = "AciJN35r05hG5oaPQI19GqPlh4fHd3OX3LPbLjvu8J1n87KDMf21_wp-V_okmA_jSNOJql91U_H06wxD";
 
             return View();
         }
