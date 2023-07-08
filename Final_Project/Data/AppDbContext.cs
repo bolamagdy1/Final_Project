@@ -21,5 +21,6 @@ namespace Final_Project.Data
         public DbSet<Course> courses { get; set; }
         public DbSet<Course_Videos> c_vs { get; set; }
         public DbSet<Job> jobs { get; set; }
+        public DbSet<Final_Project.Models.Meeting> Meeting { get; set; } = default!;
     }
 }
