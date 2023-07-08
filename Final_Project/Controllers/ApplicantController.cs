@@ -33,7 +33,7 @@ namespace Final_Project.Controllers
         {
             //applicant.Picture = Convert.ToBase64String(formFile);
             //formFile.CopyTo(applicant.Picture)
-
+            
             var user = await _userManager.FindByEmailAsync(applicant.EmailAddress);
             if (user != null)
             {
