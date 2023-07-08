@@ -19,19 +19,31 @@ namespace Final_Project.Controllers
         }
         public IActionResult SignIn()
         {
-            return Redirect(string.Format(System.Configuration.ConfigurationManager.AppSettings["AuthorizationUrl"], System.Configuration.ConfigurationManager.AppSettings["CilntId"], System.Configuration.ConfigurationManager.AppSettings["RedirectUrl"]));
+            return Redirect(string.Format("https://zoom.us/oauth/authorize?response_type=code&client_id=6UbTQISoQMq9dH9xWef8nA&redirect_uri=http://localhost:13244/Zoom/oauthredirect", "6UbTQISoQMq9dH9xWef8nA", "http://localhost:13244/Zoom/oauthredirect"));
         }
         public void oAuthredirect(string code)
         {
-            RestClient restClient = new RestClient();
+            //RestClient restClient = new RestClient();
+            var restClient = new RestClient(System.Configuration.ConfigurationManager.AppSettings["AccessTokenUrl"]);
             var request = new RestRequest();
-            //restClient.BuildUri= new Uri(string.Format(System.Configuration.ConfigurationManager.AppSettings["AccessTokenUrl"],code, System.Configuration.ConfigurationManager.AppSettings["RedirectUrl"]));
-            request.AddHeader("Authorization", string.Format(authorization_header));
-            var response = restClient.Post(request);
-            if(response.StatusCode == System.Net.HttpStatusCode.OK)
+            request.Method = Method.Post;
+            request.AddHeader("Authorization", authorization_header);
+            request.AddParameter("code", code);
+            request.AddParameter("redirect_uri", System.Configuration.ConfigurationManager.AppSettings["RedirectUrl"]);
+            var response = restClient.Execute(request);
+
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                System.IO.File.WriteAllText(TokenFilePath,response.Content);
+                System.IO.File.WriteAllText(TokenFilePath, response.Content);
             }
+            //var request = new RestRequest();
+            //restClient.BaseUrl= new Uri(string.Format(System.Configuration.ConfigurationManager.AppSettings["AccessTokenUrl"],code, System.Configuration.ConfigurationManager.AppSettings["RedirectUrl"]));
+            //request.AddHeader("Authorization", string.Format(authorization_header));
+            //var response = restClient.Post(request);
+            //if(response.StatusCode == System.Net.HttpStatusCode.OK)
+            //{
+            //    System.IO.File.WriteAllText(TokenFilePath,response.Content);
+            //}
 
         }
     }
