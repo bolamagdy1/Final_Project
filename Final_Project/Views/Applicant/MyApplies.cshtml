@@ -9,7 +9,7 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
+@*<table class="table table-hover table-info ml-3 mr-3">
     <thead>
         <tr>
             <th>
@@ -30,25 +30,44 @@
             <th></th>
         </tr>
     </thead>
-    <tbody>
+    <tbody>*@
 @foreach (var item in Model) {
-        <tr>
-            <td>
-                    @Html.DisplayFor(modelItem => item.Job.Jop_Title)
-            </td>
-            <td>
-                    @Html.DisplayFor(modelItem => item.Job.Jop_Description)
-            </td>
-            <td>
-                    @Html.DisplayFor(modelItem => item.Job.Jop_Requrement)
-            </td>
-            <td>
-                    @Html.DisplayFor(modelItem => item.Job.DeadLine)
-            </td>
-            <td>
-                    @Html.DisplayFor(modelItem => item.Job.Company.CompanyName)
-            </td>
-        </tr>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="card col-md-8 mb-5" style="max-width:1000px;">
+        <div class="row g-0">
+
+            <div class="col-md-4">
+                <img src="data:image/*;base64,@(Convert.ToBase64String(item.Job.Company.Logo))" />
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">Job Title:  @Html.DisplayFor(modelItem => item.Job.Jop_Title)</h5>
+                    <h5 class="card-title">Company Name:  @Html.DisplayFor(modelItem => item.Job.Company.CompanyName)</h5>
+                    <p class="card-text">Discription:  @Html.DisplayFor(modelItem => item.Job.Jop_Description)</p>
+                </div>
+            </div>
+        </div>
+            <div class="col-md-2"></div>
+    </div>
+    </div>
 }
+@*<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Job.Jop_Title)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Job.Jop_Description)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Job.Jop_Requrement)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Job.DeadLine)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Job.Company.CompanyName)
+    </td>
+</tr>
     </tbody>
-</table>
+</table>*@
