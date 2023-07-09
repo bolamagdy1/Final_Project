@@ -3,26 +3,33 @@
 @{
     ViewData["Title"] = "CreateCompany";
 }
+<style>
+    .custom-form {
+        background-color: #00aeef;
+        margin: 0 auto;
+        padding: 40px;
+        color: black;
+        border-radius: 5px;
+    }
+</style>
 
-<h1>CreateCompany</h1>
-
-<h4>Company</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="CreateCompany" enctype="multipart/form-data">
+<div class="row mt-5">
+    <div class="col-md-4"></div>
+    <div class="col-md-5">
+        <form asp-action="CreateCompany" enctype="multipart/form-data" class="custom-form">
+            <h1>Register as Company</h1>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+            <div class="form-group d-inline p-2">
                 <label asp-for="Logo" class="control-label"></label>
                 <input type="file" asp-for="Logo" class="form-control" />
                 <span asp-validation-for="Logo" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group d-inline p-2">
                 <label asp-for="CompanyName" class="control-label"></label>
                 <input asp-for="CompanyName" class="form-control" />
                 <span asp-validation-for="CompanyName" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group d-inline p-2">
                 <label asp-for="EmailAddress" class="control-label"></label>
                 <input asp-for="EmailAddress" class="form-control" />
                 @if (TempData["Error"] != null)
@@ -59,7 +66,10 @@
                 <input asp-for="Trusted" value="False" class="form-control" />
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-success" />
+            </div>
+            <div>
+                <a asp-action="Index" asp-controller="Home" class="btn btn-secondary">Back to List</a>
             </div>
         </form>
     </div>
@@ -68,10 +78,9 @@
         <span class="text-danger">@TempData["joseph"]</span>
     }
 </div>
+<div class="col-md-4"></div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

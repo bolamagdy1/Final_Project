@@ -34,12 +34,6 @@
                         <a class="nav-link" href="index.html">HOME</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="search jobs.html">SEARCH JOBS</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="recurments.html">RECRUITERS</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="companies.html">COMPANIES</a>
                     </li>
                     <li class="nav-item">
@@ -48,6 +42,33 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">MORE</a>
                     </li>
+                    @if (User.IsInRole("company"))
+                    {
+                        <li>
+                            <a class="nav-link" asp-action="Post" asp-controller="Company">Post Job</a>
+                        </li>
+                        <li>
+                            <a class="nav-link" asp-action="myjobs" asp-controller="Company">My Jobs</a>
+                        </li>
+                        <li>
+                            <a class="nav-link" asp-action="Appliers" asp-controller="Company">Jobs & Applicant Details </a>
+                        </li>
+                    }
+                    @if (User.IsInRole("applicant"))
+                    {
+                        <li>
+                            <a class="nav-link" asp-action="MyApplies" asp-controller="Applicant">My Jobs</a>
+                        </li>
+                        <li>
+                            <a class="nav-link" asp-action="MyCourses" asp-controller="Applicant">My Courses</a>
+                        </li>
+                    }
+                    @if (User.IsInRole("admin"))
+                    {
+                        <li>
+                            <a class="nav-link" asp-action="List_Companies" asp-controller="Admin">New Companies</a>
+                        </li>
+                    }
                 </ul>
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
@@ -78,7 +99,7 @@
             </div>*@
         </nav>
     </header>
-    
+
         <main role="main" >
             @RenderBody()
         </main>

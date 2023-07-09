@@ -17,15 +17,12 @@
     {
         <h3 style="text-align:center">@job.Jop_Title</h3>
 
-        <table class="table">
+        <table class="table table-info table-hover">
             <thead>
                 <tr>
                     <th>
                         @Html.DisplayNameFor(model => model.Applicant.ApplicantName)
                     </th>
-                    @*<th>
-            @Html.DisplayNameFor(model => model.Applicant.Picture)
-            </th>*@
                     <th>
                         @Html.DisplayNameFor(model => model.Applicant.Title)
                     </th>
@@ -38,9 +35,9 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Applicant.Age)
                     </th>
-                    @*<th>
-            @Html.DisplayNameFor(model => model.Applicant.CV)
-            </th>*@
+                    <th>
+                       @Html.DisplayNameFor(model => model.Applicant.CV)
+                    </th>
                     <th></th>
                 </tr>
             </thead>
@@ -51,9 +48,6 @@
                         <td>
                             @Html.DisplayFor(modelItem => applicantJob.Applicant.ApplicantName)
                         </td>
-                        @*<td>
-            @Html.DisplayFor(modelItem => applicantJob.Applicant.Picture)
-            </td>*@
                         <td>
                             @Html.DisplayFor(modelItem => applicantJob.Applicant.Title)
                         </td>
@@ -66,9 +60,9 @@
                         <td>
                             @Html.DisplayFor(modelItem => applicantJob.Applicant.Age)
                         </td>
-                        @*<td>
-            @Html.DisplayFor(modelItem => applicantJob.Applicant.CV)
-            </td>*@
+                        <td class="w-25 p-3" style="width:10%;height:10%">
+                            <img src="data:image/*;base64,@(Convert.ToBase64String(applicantJob.Applicant.CV))"   />
+                        </td>
                         <td>
                             <a href="mailto:@applicantJob.Applicant.EmailAddress">Mail</a> |
                             <a asp-action="Waiting" asp-route-id="@applicantJob.Id">Accept</a> |

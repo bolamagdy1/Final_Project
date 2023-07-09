@@ -3,16 +3,23 @@
 @{
     ViewData["Title"] = "Login";
 }
+<style>
+    .custom-form {
+        background-color: #00aeef;
+        margin: 0 auto;
+        padding: 40px;
+        color: black;
+        border-radius:5px;
+    }
+</style>
+<div class="row mt-5">
+    <div class="col-md-4"></div>
+    <div class="col-md-4 rounded">
+        <form asp-action="Login" class="custom-form">
+            <h1>Login</h1>
 
-<h1>Create</h1>
-
-<h4>Applicant</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Login">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            
+           
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
                 <input asp-for="Email" class="form-control" />
@@ -24,15 +31,18 @@
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Login" class="btn btn-success" />
+            </div>
+            <div>
+                <a asp-action="Index" asp-controller="Home" class="btn btn-dark">Back to List</a>
             </div>
         </form>
     </div>
+    <div class="col-md-4"></div>
+
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 
 @section Scripts {
     @{

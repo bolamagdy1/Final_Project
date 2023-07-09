@@ -3,13 +3,10 @@
 @{
     ViewData["Title"] = "myjobs";
 }
+<h1 class="ml-5 pl-5">myjobs</h1>
 
-<h1>myjobs</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+<table class="table table-success table-hover ">
     <thead>
         <tr>
             <th>
@@ -23,6 +20,9 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.DeadLine)
+            </th>
+            <th>
+                Action
             </th>
             <th></th>
         </tr>
@@ -51,3 +51,6 @@
 }
     </tbody>
 </table>
+<p>
+    <a asp-action="Post" asp-controller="Company" class="btn btn-primary">Create New</a>
+</p>
