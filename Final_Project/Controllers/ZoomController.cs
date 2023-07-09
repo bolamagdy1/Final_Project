@@ -20,8 +20,9 @@ namespace Final_Project.Controllers
             _configuration = configuration;
         }
         //need to change path for your device
-        private readonly string TokenFilePath = "D:\\ITI\\Projects\\Grad Pro\\Final_Project\\Final_Project\\Credentials\\OauthToken.json";
-        private readonly string UserDetails = "D:\\ITI\\Projects\\Grad Pro\\Final_Project\\Final_Project\\Credentials\\UserDetails.json";
+        
+        private readonly string TokenFilePath = "..\\Final_Project\\Credentials\\OauthToken.json";
+        private readonly string UserDetails = "..\\Final_Project\\Credentials\\UserDetails.json";
         private string authorization_header 
         { 
             get
@@ -39,18 +40,6 @@ namespace Final_Project.Controllers
             
         public void oAuthredirect(string code)
         {
-            string clintid = "dwBOuoTaSt2AsjXdjCL2w";
-            string clintsecret = "WGUtjaX6tO01jSiwJvU9sQ8M3d9K6Xda";
-            string blus = clintid + ":" + clintsecret;
-
-            //var result = System.Text.Encoding.UTF8.GetString(blus);
-
-            string plainText = clintid + ":" + clintsecret;
-
-
-                var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
-               
-
             var restClient = new RestClient("https://zoom.us/oauth/token");
             var request = new RestRequest();
             request.Method = Method.Post;
@@ -106,16 +95,18 @@ namespace Final_Project.Controllers
 
             RestRequest restRequest = new RestRequest();
             restRequest.AddHeader("Content-Type", "application/json");
-            restRequest.AddHeader("Authorization", "Basic ZHdCT3VvVGFTdDJBc2pYZGpDTDJ3OldHVXRqYVg2dE8wMWpTaXdKdlU5c1E4TTNkOUs2WGRh");
+            restRequest.AddHeader("Authorization", "Bearer eyJzdiI6IjAwMDAwMSIsImFsZyI6IkhTNTEyIiwidiI6IjIuMCIsImtpZCI6IjUwYWQ3MTMxLTQwYjktNGQ0My05MDQxLWJiOGQ2MjEyZTc1MiJ9.eyJ2ZXIiOjksImF1aWQiOiI1NmU5MmM2ZmY4NGUyYmEyYmZjMTljZjM2MDA3NTY5MiIsImNvZGUiOiJ6eEhoSHp0SUdIczA1UlpaaFNGUnlhOUlMNjd4bm54eWciLCJpc3MiOiJ6bTpjaWQ6ZHdCT3VvVGFTdDJBc2pYZGpDTDJ3IiwiZ25vIjowLCJ0eXBlIjowLCJ0aWQiOjQsImF1ZCI6Imh0dHBzOi8vb2F1dGguem9vbS51cyIsInVpZCI6ImNrdFRNcWZmVDF1THBoRDZtbVdHUUEiLCJuYmYiOjE2ODg4OTM0NjAsImV4cCI6MTY4ODg5NzA2MCwiaWF0IjoxNjg4ODkzNDYwLCJhaWQiOiJFWUFxd0NtRlJzMm0yeng3VThUaFVBIn0.KFkHj8Y9dFzsVfyGyYdAQjpu5Jpt4SVpq4r5zbsie8DRHTnsZQMqXdpmy1MarS_3i89jXohcOR1COaOA6zFBBQ");
             restRequest.AddParameter("application/json", model, ParameterType.RequestBody);
+            //restRequest.AddBody(model);
 
-            RestClient restClient = new RestClient($"https://api.zoom.us/v2/users/{userId}/meeting");
+            RestClient restClient = new RestClient($"https://api.zoom.us/v2/users/{userId}/meetings");
             //restClient.BaseUrl = new Uri(string.Format(Configuration Manager.AppSettings["MeetingUrl"], userI
 
             var response = restClient.Post(restRequest);
             if (response.StatusCode == System.Net.HttpStatusCode.Created)
             {
-                System.IO.File.WriteAllText("D:\\ITI\\Projects\\Grad Pro\\Final_Project\\Final_Project\\Credentials\\ZoomResponse.json", response.Content);
+                //D:\ITI\Projects\Grad Pro\Final_Project\Final_Project\Credentials
+                System.IO.File.WriteAllText("..\\Final_Project\\Credentials\\ZoomResponse.json", response.Content);
             }
             return RedirectToAction("Index", "Home");
         }
