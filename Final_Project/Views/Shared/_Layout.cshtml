@@ -59,14 +59,14 @@
                         <li>
                             <a class="nav-link" asp-action="MyApplies" asp-controller="Applicant">My Jobs</a>
                         </li>
-                        <li>
+@*                        <li>
                             <a class="nav-link" asp-action="MyCourses" asp-controller="Applicant">My Courses</a>
+                        </li>*@
+                        <li>
+                            <a class="nav-link" asp-action="GetAllForApplicant" asp-controller="HomeCourses">Avaliable Courses</a>
                         </li>
                         <li>
-                            <a class="nav-link" asp-action="GetAllForApplicant" asp-controller="HomeCourses">1 courses</a>
-                        </li>
-                        <li>
-                            <a class="nav-link" asp-action="MyApplies" asp-controller="HomeCourses">2 Courses</a>
+                            <a class="nav-link" asp-action="MyApplies" asp-controller="HomeCourses">My Courses</a>
                         </li>
                     }
                     @if (User.IsInRole("admin"))
