@@ -3,77 +3,104 @@
 @{
     ViewData["Title"] = "Appliers";
 }
+<style>
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
 
+.card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%;
+}
+
+.card-title {
+    text-align: center;
+    margin-top: 0;
+}
+
+.card-body {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.card-horizontal {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.card-image img {
+    max-width: 100%;
+    height: auto;
+}
+
+.card-details {
+    flex-grow: 1;
+}
+
+.card-details h4 {
+    margin-top: 0;
+}
+
+.card-actions a {
+    margin-right: 10px;
+}
+
+@@media (max-width: 767px) {
+    .col-md-4 {
+        flex-basis: 100%;
+        max-width: 100%;
+    }
+}
+</style>
 <h1>Appliers</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
 
-@foreach (var group in Model.GroupBy(item => item.JobId))
-{
-    var job = group.FirstOrDefault()?.Job;
-    if (job != null)
+<div class="card-container">
+    @foreach (var group in Model.GroupBy(item => item.JobId))
     {
-        <h3 style="text-align:center">@job.Jop_Title</h3>
+        var job = group.FirstOrDefault()?.Job;
+        if (job != null)
+        {
+            <div class="card">
+                <h3 class="card-title">@job.Jop_Title</h3>
 
-        <table class="table table-info table-hover ml-3 mr-5">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Applicant.ApplicantName)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Applicant.Title)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Job.Jop_Title)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Applicant.Phone)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Applicant.Age)
-                    </th>
-                    <th>
-                       @Html.DisplayNameFor(model => model.Applicant.CV)
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var applicantJob in group)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => applicantJob.Applicant.ApplicantName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => applicantJob.Applicant.Title)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => applicantJob.Job.Jop_Title)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => applicantJob.Applicant.Phone)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => applicantJob.Applicant.Age)
-                        </td>
-                        <td class="w-25 p-3" style="width:10%;height:10%">
-                            <img src="data:image/*;base64,@(Convert.ToBase64String(applicantJob.Applicant.CV))"   />
-                        </td>
-                        <td>
-                            <a href="mailto:@applicantJob.Applicant.EmailAddress">Mail</a> |
-                            <a asp-action="Waiting" asp-route-id="@applicantJob.Id">Accept</a> |
-                            <a asp-action="Waiting" asp-route-id="@applicantJob.Id">Reject</a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+                <div class="card-body">
+                    <div class="row">
+                        @foreach (var applicantJob in group)
+                        {
+                            <div class="col-md-4">
+                                <div class="card-horizontal">
+                                    <div class="card-image">
+                                        <img src="data:image/*;base64,@(Convert.ToBase64String(applicantJob.Applicant.CV))" alt="CV">
+                                    </div>
+                                    <div class="card-details">
+                                        <h4>@applicantJob.Applicant.ApplicantName</h4>
+                                        <p>@applicantJob.Applicant.Title</p>
+                                        <p>@applicantJob.Applicant.Phone</p>
+                                        <p>@applicantJob.Applicant.Age</p>
+                                        <div class="card-actions">
+                                            <a href="mailto:@applicantJob.Applicant.EmailAddress">Mail</a>
+                                            <a href="@Url.Action("Waiting", new { id = applicantJob.Id })">Accept</a>
+                                            <a href="@Url.Action("Waiting", new { id = applicantJob.Id })">Reject</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
     }
-}
-
+</div>
 
 

@@ -5,52 +5,55 @@
 }
 <h1 class="ml-5 pl-5">myjobs</h1>
 
+<style>
+    .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        
+    }
 
-<table class="table table-success table-hover ">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Jop_Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Jop_Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Jop_Requrement)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DeadLine)
-            </th>
-            <th>
-                Action
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Jop_Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Jop_Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Jop_Requrement)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DeadLine)
-            </td>
-            <td>
-                <a asp-action="EditPost" asp-route-id="@item.JobId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.JobId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.JobId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    .card {
+        border: 1px solid black;
+        border-radius: 5px;
+        width: 100%;
+    }
+
+    .card-body {
+        padding: 10px;
+    }
+
+    .card-title {
+        font-size: 18px;
+        margin-top: 0;
+    }
+
+    .card-text {
+        margin-bottom: 0;
+    }
+
+    .card-actions a {
+        margin-right: 10px;
+    }
+</style>
+<div class="card-container ml-4">
+    @foreach (var item in Model)
+    {
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Job Title:  @item.Jop_Title</h5>
+                <p class="card-text">Job Discription: @item.Jop_Description</p>
+                <p class="card-text">Job Requrement: @item.Jop_Requrement</p>
+                <p class="card-text">DeadLine:  Deadline: @item.DeadLine</p>
+                <div class="card-actions">
+                    <a href="@Url.Action("EditPost", new { id = item.JobId })">Edit</a>
+                    <a href="@Url.Action("Details", new { id = item.JobId })">Details</a>
+                    <a href="@Url.Action("Delete", new { id = item.JobId })">Delete</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
 <p>
     <a asp-action="Post" asp-controller="Company" class="btn btn-primary">Create New</a>
 </p>
