@@ -6,7 +6,7 @@ namespace Final_Project.Models
     {
         public int CompanyId { get; set; }
         [Display(Name = "Logo")]
-        public byte[] Logo { get; set; }
+        public string Logo { get; set; }
         [Display(Name = "Company Name")]
         [MinLength(6)]
         public string CompanyName { get; set; }
@@ -31,9 +31,9 @@ namespace Final_Project.Models
         [MinLength(6)]
         public string Address { get; set; }
         [Display(Name = "Commercial Record")]
-        public byte[] Doc1 { get; set; }
+        public string Doc1 { get; set; }
         [Display(Name = "Tax card")]
-        public byte[] Doc2 { get; set; }
+        public string Doc2 { get; set; }
 
         public bool Trusted { get; set; }
 

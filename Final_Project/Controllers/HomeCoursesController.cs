@@ -41,13 +41,20 @@ namespace Final_Project.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult CreateCourse(Course course, IFormCollection formFile)
+        public IActionResult CreateCourse(Course course,IFormCollection formFile)
         {
-            var temp = new MemoryStream();
-            var test = formFile.Files[0];
-            test.CopyTo(temp);
-            course.Image = temp.ToArray();
-            _context.courses.Add( course );
+            string target_folder = "wwwroot/Server/";
+
+            var _FileName1 = course.CourseId + formFile.Files[0].FileName;
+            string path = Path.Combine(target_folder + "Course_Images", _FileName1);
+
+            using (Stream fileStream = new FileStream(path, FileMode.Create))
+            {
+                formFile.Files[0].CopyToAsync(fileStream);
+            }
+            course.Image = _FileName1;
+
+            _context.courses.Add(course);
             _context.SaveChanges();
             return RedirectToAction("GetAllForAdmin", "HomeCourses");
         }
