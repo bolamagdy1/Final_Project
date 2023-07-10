@@ -16,6 +16,10 @@ namespace Final_Project.Controllers
         }
         public IActionResult Index()
         {
+            return View();
+        }
+        public IActionResult Jobs()
+        {
             try
             {
                 var applicant = _context.applicants.FirstOrDefault(e => e.EmailAddress == TempData.Peek("abdo"));
