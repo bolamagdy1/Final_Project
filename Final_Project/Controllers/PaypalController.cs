@@ -26,7 +26,8 @@ namespace Final_Project.Controllers
             try
             {
                 // set the transaction price and currency
-                var price = "100.00";
+                //TempData["price"]
+                var price = TempData["price"].ToString();
                 var currency = "USD";
 
                 // "reference" is the transaction key

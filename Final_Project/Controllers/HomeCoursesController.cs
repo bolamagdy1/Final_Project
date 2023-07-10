@@ -59,14 +59,31 @@ namespace Final_Project.Controllers
             return RedirectToAction("GetAllForAdmin", "HomeCourses");
         }
         [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var course = _context.courses.FirstOrDefault(i => i.CourseId == id);
+            return View(course);
+        }
+        [HttpPost]
+        public IActionResult Edit(Course course)
+        {
+            _context.Update(course);
+            _context.SaveChanges();
+            return RedirectToAction("GetAllForAdmin");
+        }
+        [HttpGet]
         public IActionResult adding(int id)
         {
             var applicant = _context.applicants.FirstOrDefault(e => e.EmailAddress == TempData.Peek("abdo"));
             var course = _context.courses.FirstOrDefault(i => i.CourseId == id);
+            
             if (course.Price > 0)
             {
-                pay();
-                return RedirectToAction("GetAllForApplicant", "HomeCourses");
+                Applicant_Course Applicant_Course = new Applicant_Course() { ApplicantId = applicant.ApplicantId, CourseId = course.CourseId };
+                _context.As_Cs.Add(Applicant_Course);
+                _context.SaveChanges();
+                TempData["price"] = course.Price.ToString();
+                return RedirectToAction("Index", "Paypal");
             }
             else
             {
@@ -77,10 +94,6 @@ namespace Final_Project.Controllers
             }
         }
 
-        private void pay()
-        {
-            
-        }
 
         public IActionResult MyApplies()
         {

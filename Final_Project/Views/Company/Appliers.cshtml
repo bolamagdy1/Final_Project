@@ -78,19 +78,21 @@
                         @foreach (var applicantJob in group)
                         {
                             <div class="col-md-4">
-                                <div class="card-horizontal">
-                                    <div class="card-image">
-                                        <img src="@applicantJob.Applicant.CV" alt="CV">
+                                <div class="card">
+                                    <div class="card-logo">
+                                        <img src="@Url.Content("~/Server/Pics/"+applicantJob.Applicant.Picture)" alt="@applicantJob.Applicant.ApplicantName">
                                     </div>
                                     <div class="card-details">
-                                        <h4>@applicantJob.Applicant.ApplicantName</h4>
-                                        <p>@applicantJob.Applicant.Title</p>
-                                        <p>@applicantJob.Applicant.Phone</p>
-                                        <p>@applicantJob.Applicant.Age</p>
+                                        <h3>Name: @applicantJob.Applicant.ApplicantName</h3>
+                                        <h4>Title: @applicantJob.Applicant.Title</h4>
+                                        <h4><a href="tel:@applicantJob.Applicant.Phone">Phone :@applicantJob.Applicant.Phone</a></h4>
+                                        <h4>Age: @applicantJob.Applicant.Age</h4>
+                                        <h4><a href="~/Server/CVs/@applicantJob.Applicant.CV" download="">Resume <i class="fa fa-download" aria-hidden="true"></i></a></h4>
+
                                         <div class="card-actions">
-                                            <a href="mailto:@applicantJob.Applicant.EmailAddress">Mail</a>
-                                            <a href="@Url.Action("Waiting", new { id = applicantJob.Id })">Accept</a>
-                                            <a href="@Url.Action("Waiting", new { id = applicantJob.Id })">Reject</a>
+                                            <a class="btn btn-info" href="mailto:@applicantJob.Applicant.EmailAddress">Mail</a>|
+                                            <a class="btn btn-info" href="@Url.Action("Waiting", new { id = applicantJob.Id })">Accept</a>
+                                            <a class="btn btn-danger" href="@Url.Action("Waiting", new { id = applicantJob.Id })">Reject</a>
                                         </div>
                                     </div>
                                 </div>
