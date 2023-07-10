@@ -29,7 +29,7 @@ namespace Final_Project.Models
         public string ConfirmPassword { get; set; }
 
         [Display(Name ="Profile Picture")]
-        public byte[] Picture { get; set; }
+        public string? Picture { get; set; }
         [Display(Name ="Applicant Tilte")]
         [MinLength(6, ErrorMessage = "6 is the minimum length")]
         public string Title { get; set; }
@@ -43,7 +43,7 @@ namespace Final_Project.Models
         [Range(15,60,ErrorMessage ="Age must be from 15 to 60")]
         public int Age { get; set; }
         [Display(Name = "CV")]
-        public byte[] CV { get; set; }
+        public string? CV { get; set; }
 
     }
 }

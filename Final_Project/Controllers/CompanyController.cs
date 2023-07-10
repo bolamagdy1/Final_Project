@@ -35,8 +35,7 @@ namespace Final_Project.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateCompany(Company company, IFormCollection formFile)
         {
-            //applicant.Picture = Convert.ToBase64String(formFile);
-            //formFile.CopyTo(applicant.Picture)
+            string target_folder = "wwwroot/Server/";
 
             var user = await _userManager.FindByEmailAsync(company.EmailAddress);
             if (user != null)
@@ -61,23 +60,36 @@ namespace Final_Project.Controllers
                 return View(company);
             }
 
-            var temp = new MemoryStream();
-            var test = formFile.Files[0];
-            test.CopyTo(temp);
-            company.Logo = temp.ToArray();
+            var _FileName1 = company.CompanyName + formFile.Files[0].FileName;
+            string path = Path.Combine(target_folder + "Logos", _FileName1);
 
-            var temp2 = new MemoryStream();
-            var test2 = formFile.Files[1];
-            test2.CopyTo(temp2);
-            company.Doc1 = temp2.ToArray();
+            using (Stream fileStream = new FileStream(path, FileMode.Create))
+            {
+                await formFile.Files[0].CopyToAsync(fileStream);
+            }
 
-            var temp3 = new MemoryStream();
-            var test3 = formFile.Files[2];
-            test3.CopyTo(temp3);
-            company.Doc2 = temp3.ToArray();
+            var _FileName2 = company.CompanyName + formFile.Files[1].FileName;
+            string path2 = Path.Combine(target_folder + "Docs1", _FileName2);
+
+            using (Stream fileStream = new FileStream(path2, FileMode.Create))
+            {
+                await formFile.Files[1].CopyToAsync(fileStream);
+            }
+
+            var _FileName3 = company.CompanyName + formFile.Files[2].FileName;
+            string path3 = Path.Combine(target_folder + "Docs2", _FileName3);
+
+            using (Stream fileStream = new FileStream(path3, FileMode.Create))
+            {
+                await formFile.Files[2].CopyToAsync(fileStream);
+            }
 
             var sameuser = await _userManager.FindByEmailAsync(company.EmailAddress);
             company.Password = sameuser.PasswordHash;
+            company.ConfirmPassword = sameuser.PasswordHash;
+            company.Logo = _FileName1;
+            company.Doc1 = _FileName2;
+            company.Doc2 = _FileName3;
 
             _context.companies.Add(company);
             _context.SaveChanges();

@@ -21,7 +21,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group d-inline p-2">
                 <label asp-for="Logo" class="control-label"></label>
-                <input type="file" asp-for="Logo" class="form-control" />
+                <input type="file" accept="image/*" asp-for="Logo" class="form-control" />
                 <span asp-validation-for="Logo" class="text-danger"></span>
             </div>
             <div class="form-group d-inline p-2">
@@ -54,12 +54,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="Doc1" class="control-label"></label>
-                <input type="file" asp-for="Doc1" class="form-control" />
+                <input type="file" accept="application/pdf" asp-for="Doc1" class="form-control" />
                 <span asp-validation-for="Doc1" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Doc2" class="control-label"></label>
-                <input type="file" asp-for="Doc2" class="form-control" />
+                <input type="file" accept="application/pdf" asp-for="Doc2" class="form-control" />
                 <span asp-validation-for="Doc2" class="text-danger"></span>
             </div>
             <div class="form-group" hidden>

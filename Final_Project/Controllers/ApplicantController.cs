@@ -29,11 +29,9 @@ namespace Final_Project.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Create(Applicant applicant, IFormCollection formFile)
+        public async Task<IActionResult> Create(Applicant applicant , IFormCollection formFile)
         {
-            //applicant.Picture = Convert.ToBase64String(formFile);
-            //formFile.CopyTo(applicant.Picture)
-            
+            string target_folder = "wwwroot/Server/";
             var user = await _userManager.FindByEmailAsync(applicant.EmailAddress);
             if (user != null)
             {
@@ -57,23 +55,35 @@ namespace Final_Project.Controllers
                 TempData["bola"] = newUserResponse;
                 return View(applicant);
             }
-
-            var temp = new MemoryStream();
-            var test = formFile.Files.FirstOrDefault();
-            test.CopyTo(temp);
-            applicant.Picture = temp.ToArray();
-
-            var temp2 = new MemoryStream();
-            var test2 = formFile.Files.LastOrDefault();
-            test2.CopyTo(temp2);
-            applicant.CV = temp2.ToArray();
-
+            
             var sameuser = await _userManager.FindByEmailAsync(applicant.EmailAddress);
-            applicant.Password = sameuser.PasswordHash;
 
+            var _FileName1 = applicant.ApplicantName + formFile.Files[0].FileName;
+            string path = Path.Combine(target_folder + "Pics", _FileName1);
+
+            using (Stream fileStream = new FileStream(path, FileMode.Create))
+            {
+                await formFile.Files[0].CopyToAsync(fileStream);
+            }
+
+            var _FileName2 = applicant.ApplicantName + formFile.Files[1].FileName;
+            string path2 = Path.Combine(target_folder + "CVs", _FileName2);
+
+            using (Stream fileStream = new FileStream(path2, FileMode.Create))
+            {
+                await formFile.Files[1].CopyToAsync(fileStream);
+            }
+
+            applicant.Password = sameuser.PasswordHash;
+            applicant.ConfirmPassword = sameuser.PasswordHash;
+            applicant.Picture = _FileName1;
+            applicant.CV = _FileName2;
 
             _context.applicants.Add(applicant);
             _context.SaveChanges();
+
+            
+
             return RedirectToAction("Index","Home");
         }
         public IActionResult Login() => View(new Login());

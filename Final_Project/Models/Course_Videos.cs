@@ -7,7 +7,7 @@ namespace Final_Project.Models
     {
         public int Id { get; set; }
         [Display(Name ="Video")]
-        public byte[] Videos { get; set; }
+        public string Videos { get; set; }
 
         //Relation
         [ForeignKey("Course")]

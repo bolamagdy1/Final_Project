@@ -36,23 +36,23 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td class="w-10 p-3" style="width:5%;height:5%">
+            @*<td class="w-10 p-3" style="width:5%;height:5%">
                     <img src="data:image/*;base64,@(Convert.ToBase64String(item.Logo))" />
-            </td>
+            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.CompanyName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Address)
             </td>
-            <td class="w-10 p-3" style="width:5%;height:5%">
+            @*<td class="w-10 p-3" style="width:5%;height:5%">
                     <img src="data:image/*;base64,@(Convert.ToBase64String(item.Doc1))" />
 
             </td>
             <td class="w-10 p-3" style="width:5%;height:5%">
                     <img src="data:image/*;base64,@(Convert.ToBase64String(item.Doc2))" />
 
-            </td>
+            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.Trusted)
             </td>

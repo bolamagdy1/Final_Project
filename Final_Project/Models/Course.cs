@@ -10,7 +10,7 @@ namespace Final_Project.Models
         [MinLength(3)]
         public string CourseName { get; set; }
         [Display(Name ="Image")]
-        public byte[] Image { get; set; }
+        public string Image { get; set; }
         [Display(Name = "Course Description")]
         [MinLength (6)]
         public string CourseDescription { get; set; }

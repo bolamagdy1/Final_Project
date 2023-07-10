@@ -60,9 +60,9 @@
                         <td>
                             @Html.DisplayFor(modelItem => applicantJob.Applicant.Age)
                         </td>
-                        <td class="w-25 p-3" style="width:10%;height:10%">
+                        @*<td class="w-25 p-3" style="width:10%;height:10%">
                             <img src="data:image/*;base64,@(Convert.ToBase64String(applicantJob.Applicant.CV))"   />
-                        </td>
+                        </td>*@
                         <td>
                             <a href="mailto:@applicantJob.Applicant.EmailAddress">Mail</a> |
                             <a asp-action="Waiting" asp-route-id="@applicantJob.Id">Accept</a> |
