@@ -24,13 +24,13 @@
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="logo" asp-action="index" asp-controller="Home"><img src="~/images/logo.png"></a>
+            <a class="logo" asp-action="index" asp-controller="Home"><img src="~/images/after1.png"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
-                    <li class="nav-item">
+                    @*<li class="nav-item">
                         <a class="nav-link" asp-action="index" asp-controller="Home" >HOME</a>
                     </li>
                     <li class="nav-item">
@@ -41,7 +41,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">MORE</a>
-                    </li>
+                    </li>*@
                     @if (User.IsInRole("company"))
                     {
                         <li>
@@ -57,6 +57,9 @@
                     @if (User.IsInRole("applicant"))
                     {
                         <li>
+                            <a class="nav-link" asp-action="Jobs" asp-controller="Home">Jobs</a>
+                        </li>
+                        <li>
                             <a class="nav-link" asp-action="MyApplies" asp-controller="Applicant">My Jobs</a>
                         </li>
 @*                        <li>
@@ -66,7 +69,7 @@
                             <a class="nav-link" asp-action="GetAllForApplicant" asp-controller="HomeCourses">Avaliable Courses</a>
                         </li>
                         <li>
-                            <a class="nav-link" asp-action="MyApplies" asp-controller="HomeCourses">My Courses</a>
+                            <a class="nav-link" asp-action="MyCourses" asp-controller="Applicant">My Courses</a>
                         </li>
                     }
                     @if (User.IsInRole("admin"))
@@ -83,8 +86,10 @@
 
                     }
                 </ul>
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
                         <a class="nav-link" asp-action="Login" asp-controller="Applicant">LOGIN HERE</a>
                     </li>
                     <li class="nav-item">
@@ -98,7 +103,20 @@
                             </div>
                         </div>
                     </li>
-                </ul>
+                    </ul>
+                }
+                else
+                {
+                    <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                            <form asp-action="Logout" asp-controller="Applicant">
+
+                        
+                        <button type="submit" class="nav-link btn btn-danger text-white">LOGOUT</button>
+                            </form>
+                        </li>
+                    </ul>
+                }
             </div>
             @*<div class="login_text"><a asp-action="Login" asp-controller="Applicant">LOGIN HERE</a></div>
             <div class="dropdown">
@@ -112,7 +130,6 @@
             </div>*@
         </nav>
     </header>
-
         <main role="main" >
             @RenderBody()
         </main>
@@ -141,6 +158,16 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/jquery.min.js"></script>
+	<script src="~/js/popper.min.js"></script>
+	<script src="~/js/bootstrap.bundle.min.js"></script>
+	<script src="~/js/jquery-3.0.0.min.js"></script>
+	<script src="~/js/plugin.js"></script>
+	<!-- sidebar -->
+	<script src="~/js/jquery.mCustomScrollbar.concat.min.js"></script>
+	@*<script src="~/js/custom.js"></script>*@
+	<!-- javascript -->
+	<script src="~/js/owl.carousel.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
