@@ -80,7 +80,7 @@
                             <div class="col-md-4">
                                 <div class="card-horizontal">
                                     <div class="card-image">
-                                        <img src="data:image/*;base64,@(Convert.ToBase64String(applicantJob.Applicant.CV))" alt="CV">
+                                        <img src="@applicantJob.Applicant.CV" alt="CV">
                                     </div>
                                     <div class="card-details">
                                         <h4>@applicantJob.Applicant.ApplicantName</h4>
