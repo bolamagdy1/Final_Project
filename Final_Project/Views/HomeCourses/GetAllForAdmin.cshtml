@@ -7,9 +7,9 @@
 <h1>GetAllForAdmin</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="CreateCourse" asp-controller="HomeCourses">Create New</a>
 </p>
-<table class="table">
+<table class="table ml-3 mr-3">
     <thead>
         <tr>
             <th>
@@ -39,9 +39,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.CourseName)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Image)
-            </td>
+                <td class="w-25 p-3" style="width:10%;height:10%">
+                    <img src="data:image/*;base64,@(Convert.ToBase64String(item.Image))" />
+                </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CourseDescription)
             </td>
