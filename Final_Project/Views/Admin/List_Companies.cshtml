@@ -38,13 +38,14 @@
     {
         <div class="card">
             <div class="card-logo">
-                <img src="data:image/*;base64,@(Convert.ToBase64String(item.Logo))" alt="Logo">
+                <img src="@Url.Content("~/Server/Logos/"+item.Logo)" alt="Logo">
             </div>
             <div class="card-details">
                 <h3>Company Name:  @item.CompanyName</h3>
                 <p>Company address:  @item.Address</p>
-                <p>Doc1: @item.Doc1</p>
-                <p>Doc2: @item.Doc2</p>
+                <a href="~/Server/Docs1/@item.Doc1" download="">Commercial Record <i class="fa fa-download" aria-hidden="true"></i></a>
+                <br>
+                <a href="~/Server/Docs2/@item.Doc2" download="">Tax card <i class="fa fa-download" aria-hidden="true"></i></a>
                 <p>Trusted: @item.Trusted</p>
             </div>
             <div class="card-actions">
@@ -55,64 +56,3 @@
         </div>
     }
 </div>
-@*<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Logo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CompanyName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Address)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Doc1)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Doc2)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Trusted)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-
-@foreach (var item in Model) {
-
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Logo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CompanyName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Address)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Doc1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Doc2)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Trusted)
-        </td>
-        <td>
-            <a asp-action="Approve" asp-route-id="@item.CompanyId">approve</a> |
-            <a asp-action="Details" asp-route-id="@item.CompanyId">Details</a> |
-            <a asp-action="Delete" asp-route-id="@item.CompanyId">Delete</a>
-        </td>
-    </tr>
-}
-    </tbody>
-</table>*@
-
-    
-
-
-    

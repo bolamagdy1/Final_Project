@@ -4,41 +4,15 @@
     ViewData["Title"] = "MyCourses";
 }
 
-@*<table class="table">*@
-@*<thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Course.CourseName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Course.Image)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Course.CourseDescription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Course.Content)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Course.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Course.Category)
-            </th>
-            <th></th>
-        </tr>
-    </thead>*@
-@*<tbody>*@
 @foreach (var item in Model)
 {
     <div class="row">
-        <div class="col-md-2"></div>
-        <div class="card col-md-8 mb-5" style="max-width:1000px;max-height:200px">
-            <div class="row g-0">
+        <div class="card" style="max-width:1000px">
+            <div class="row">
 
-                @*<div class="col-md-4">
-                    <img style="height:200px" src="data:image/*;base64,@(Convert.ToBase64String(item.Course.Image))" />
-                </div>*@
+                <div class="col-md-4">
+                    <img src="@Url.Content("~/Server/Course_Images/"+@item.Course.Image)" />
+                </div>
                 <div class="col-md-8">
                     <div class="card-body">
                         <h5 class="card-title"><strong>Course Name: </strong> @Html.DisplayFor(modelItem => item.Course.CourseName)</h5>
