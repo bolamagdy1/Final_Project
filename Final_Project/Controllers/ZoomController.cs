@@ -1,23 +1,36 @@
 ﻿using Final_Project.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 using System.Configuration;
+using System.Net.Mail;
+using System.Net;
 using System.Security.Policy;
 using System.Text;
+using System.Text.Json;
 using static System.Net.WebRequestMethods;
+using Final_Project.Data;
 
 namespace Final_Project.Controllers
 {
     
+    public class zeze
+    {
+        public string start_url { get; set; }
+        public string join_url { get; set; }
+        public string start_time { get; set; }
+    }
     public class ZoomController : Controller
     {
          private readonly IConfiguration _configuration;
-        public ZoomController(IConfiguration configuration)
+        private readonly AppDbContext _context;
+        public ZoomController(IConfiguration configuration,AppDbContext context)
         {
             _configuration = configuration;
+            _context = context;
         }
         //need to change path for your device
         
@@ -88,14 +101,15 @@ namespace Final_Project.Controllers
             var meetingModel = new JObject();
             meetingModel["topic"] = meeting.Topic;
             meetingModel["agenda"] = meeting.Agenda;
-            meetingModel["start_time"] = DateTime.Now;
+            meeting.Time -= 7;
+            meetingModel["start_time"] = meeting.Date.ToString("yyyy-MM-dd") + "T" + TimeSpan.FromHours(meeting.Time).ToString();
             //ToString("yyyy-MM-dd") + "T" + TimeSpan.FromHours(meeting.Time).ToString()
             meetingModel["duration"] = meeting.Duration;
             var model = JsonConvert.SerializeObject(meetingModel);
 
             RestRequest restRequest = new RestRequest();
             restRequest.AddHeader("Content-Type", "application/json");
-            restRequest.AddHeader("Authorization", "Bearer eyJzdiI6IjAwMDAwMSIsImFsZyI6IkhTNTEyIiwidiI6IjIuMCIsImtpZCI6IjUwYWQ3MTMxLTQwYjktNGQ0My05MDQxLWJiOGQ2MjEyZTc1MiJ9.eyJ2ZXIiOjksImF1aWQiOiI1NmU5MmM2ZmY4NGUyYmEyYmZjMTljZjM2MDA3NTY5MiIsImNvZGUiOiJ6eEhoSHp0SUdIczA1UlpaaFNGUnlhOUlMNjd4bm54eWciLCJpc3MiOiJ6bTpjaWQ6ZHdCT3VvVGFTdDJBc2pYZGpDTDJ3IiwiZ25vIjowLCJ0eXBlIjowLCJ0aWQiOjQsImF1ZCI6Imh0dHBzOi8vb2F1dGguem9vbS51cyIsInVpZCI6ImNrdFRNcWZmVDF1THBoRDZtbVdHUUEiLCJuYmYiOjE2ODg4OTM0NjAsImV4cCI6MTY4ODg5NzA2MCwiaWF0IjoxNjg4ODkzNDYwLCJhaWQiOiJFWUFxd0NtRlJzMm0yeng3VThUaFVBIn0.KFkHj8Y9dFzsVfyGyYdAQjpu5Jpt4SVpq4r5zbsie8DRHTnsZQMqXdpmy1MarS_3i89jXohcOR1COaOA6zFBBQ");
+            restRequest.AddHeader("Authorization", "Bearer eyJzdiI6IjAwMDAwMSIsImFsZyI6IkhTNTEyIiwidiI6IjIuMCIsImtpZCI6IjJmZjE5N2ExLWQ1YWEtNGZkZS1hYTVmLWZmZmZhNjA3NjlkNCJ9.eyJ2ZXIiOjksImF1aWQiOiI1NmU5MmM2ZmY4NGUyYmEyYmZjMTljZjM2MDA3NTY5MiIsImNvZGUiOiJ6eEhoSHp0SUdIczA1UlpaaFNGUnlhOUlMNjd4bm54eWciLCJpc3MiOiJ6bTpjaWQ6ZHdCT3VvVGFTdDJBc2pYZGpDTDJ3IiwiZ25vIjowLCJ0eXBlIjowLCJ0aWQiOjcsImF1ZCI6Imh0dHBzOi8vb2F1dGguem9vbS51cyIsInVpZCI6ImNrdFRNcWZmVDF1THBoRDZtbVdHUUEiLCJuYmYiOjE2ODkwNzE0MDAsImV4cCI6MTY4OTA3NTAwMCwiaWF0IjoxNjg5MDcxNDAwLCJhaWQiOiJFWUFxd0NtRlJzMm0yeng3VThUaFVBIn0.42TE9-T8kAVXB5UqCWuG7tBiAK0awazkKoWsmHJ6IVIjmzZVgNOsm88Xbg83FvnCVwTPHcO8P2yh6QKZPRDbIA");
             restRequest.AddParameter("application/json", model, ParameterType.RequestBody);
             //restRequest.AddBody(model);
 
@@ -108,8 +122,74 @@ namespace Final_Project.Controllers
                 //D:\ITI\Projects\Grad Pro\Final_Project\Final_Project\Credentials
                 System.IO.File.WriteAllText("..\\Final_Project\\Credentials\\ZoomResponse.json", response.Content);
             }
-            return RedirectToAction("Index", "Home");
+            //string path = "..\\Final_Project\\Credentials\\ZoomResponse.json";
+            //string readText = System.IO.File.ReadAllText(path);
+            //JArray convert = JArray.Parse(readText);
+
+            //zeze bla = JsonSerializer.Deserialize<zeze>(readText)!;
+
+            
+            
+            string fileName = "..\\Final_Project\\Credentials\\ZoomResponse.json";
+            string jsonString = System.IO.File.ReadAllText(fileName);
+            zeze bla = System.Text.Json.JsonSerializer.Deserialize<zeze>(jsonString)!;
+
+            //TempData["start_url"] = bla.start_url;
+            //TempData["join_url"] = bla.join_url;
+            //TempData["start_time"] = bla.start_time;
+
+            string fromMail = "bolamagdy085@gmail.com";
+            string fromPassword = "hgkguhlfwqsgfucz";
+
+            //var applicant = _context.applicants.FirstOrDefault(i => i.ApplicantId == id);
+            var company = _context.companies.FirstOrDefault(e => e.EmailAddress == TempData.Peek("abdo"));
+
+            MailMessage message = new MailMessage();
+            message.From = new MailAddress(fromMail);
+            message.Subject = "Test Subject";
+            message.To.Add(new MailAddress(company.EmailAddress));
+            message.Body = $"Hello Sir."+$"\n Zoom Meeting will start in {bla.start_time}"+$"\n This is Start URL {bla.start_url}" +$"\n and this is Join URL {bla.join_url}";
+            //message.IsBodyHtml = true;
+
+            var smtpClient = new SmtpClient("smtp.gmail.com")
+            {
+                Port = 587,
+                Credentials = new NetworkCredential(fromMail, fromPassword),
+                EnableSsl = true,
+            };
+
+            smtpClient.Send(message);
+
+            return RedirectToAction("Appliers", "Company");
+        }
+        public IActionResult ZoomDetails()
+        {
+            return View();
         }
     }
 
+    internal class NewClass
+    {
+        public string Item { get; }
+        public object Start_url { get; }
+
+        public NewClass(string item, object start_url)
+        {
+            Item = item;
+            Start_url = start_url;
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is NewClass other &&
+                   Item == other.Item &&
+                   EqualityComparer<object>.Default.Equals(Start_url, other.Start_url);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Item, Start_url);
+        }
+        
+    }
 }

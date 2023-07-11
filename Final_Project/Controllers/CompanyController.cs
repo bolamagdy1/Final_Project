@@ -170,7 +170,15 @@ namespace Final_Project.Controllers
             job.CompanyId = company.CompanyId;
             _context.jobs.Update(job);
             _context.SaveChanges();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("myjobs");
+        }
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            var job= _context.jobs.FirstOrDefault(i=>i.JobId == id);
+            _context.jobs.Remove(job);
+            _context.SaveChanges();
+            return RedirectToAction("myjobs");
         }
         [HttpGet]
         public IActionResult Appliers() 
@@ -197,16 +205,18 @@ namespace Final_Project.Controllers
                 .ToList();
             return View(applicants);
         }
-        public IActionResult Waiting(int id)
+        public IActionResult accepting(int id)
         {
             string fromMail = "bolamagdy085@gmail.com";
-            string fromPassword = "";
+            string fromPassword = "hgkguhlfwqsgfucz";
+
+            var applicant = _context.applicants.FirstOrDefault(i => i.ApplicantId == id);
 
             MailMessage message = new MailMessage();
             message.From = new MailAddress(fromMail);
             message.Subject = "Test Subject";
-            message.To.Add(new MailAddress("abdalrhmanyasser@icloud.com"));
-            message.Body = "<html><body> Hello From VS </body></html>";
+            message.To.Add(new MailAddress(applicant.EmailAddress));
+            message.Body = "<html><body> Congratulations From JE_Journy </body></html>";
             message.IsBodyHtml = true;
 
             var smtpClient = new SmtpClient("smtp.gmail.com")
@@ -218,7 +228,38 @@ namespace Final_Project.Controllers
 
             smtpClient.Send(message);
 
+            var applied = _context.applicants_jobs.FirstOrDefault(i => i.ApplicantId == applicant.ApplicantId);
+            _context.applicants_jobs.Remove(applied);
+            _context.SaveChanges();
 
+            return RedirectToAction("Appliers");
+        }
+        public IActionResult rejecting(int id)
+        {
+            string fromMail = "bolamagdy085@gmail.com";
+            string fromPassword = "hgkguhlfwqsgfucz";
+
+            var applicant = _context.applicants.FirstOrDefault(i => i.ApplicantId == id);
+
+            MailMessage message = new MailMessage();
+            message.From = new MailAddress(fromMail);
+            message.Subject = "Test Subject";
+            message.To.Add(new MailAddress(applicant.EmailAddress));
+            message.Body = "<html><body> Sorry From JE_Journy </body></html>";
+            message.IsBodyHtml = true;
+
+            var smtpClient = new SmtpClient("smtp.gmail.com")
+            {
+                Port = 587,
+                Credentials = new NetworkCredential(fromMail, fromPassword),
+                EnableSsl = true,
+            };
+
+            smtpClient.Send(message);
+
+            var applied = _context.applicants_jobs.FirstOrDefault(i => i.ApplicantId == applicant.ApplicantId);
+            _context.applicants_jobs.Remove(applied);
+            _context.SaveChanges();
 
             return RedirectToAction("Appliers");
         }

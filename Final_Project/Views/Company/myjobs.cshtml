@@ -49,7 +49,7 @@
                 <div class="card-actions ">
                     <a href="@Url.Action("EditPost", new { id = item.JobId })" class="btn btn-success">Edit</a>
                     @*<a href="@Url.Action("Details", new { id = item.JobId })" class="btn btn-secondary">Details</a>*@
-                    <a href="@Url.Action("Delete", new { id = item.JobId })" class="btn btn-danger">Delete</a>
+                    <a onclick="javascript: return SubmitForm();" href="@Url.Action("Delete", new { id = item.JobId })" class="btn btn-danger">Delete</a>
                 </div>
             </div>
         </div>
@@ -58,3 +58,13 @@
 <p>
     <a asp-action="Post" asp-controller="Company" class="btn btn-primary">Create New</a>
 </p>
+<script>
+    function SubmitForm() {
+        var r = confirm("Are you sure you want to Delete?");
+        if (r == false) {
+            return false;
+        }
+        // do something
+        return true;
+    }
+</script>

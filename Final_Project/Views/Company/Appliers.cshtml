@@ -70,7 +70,7 @@
                 {
                     <tr>
                         <td class="card-image">
-                            <img src="@Url.Content("~/Server/Pics/" + applicantJob.Applicant.Picture)" alt="@applicantJob.Applicant.ApplicantName">
+                            <img src="@Url.Content("~/Server/Pics/"+applicantJob.Applicant.Picture)" alt="@applicantJob.Applicant.ApplicantName">
                         </td>
                         <td>@applicantJob.Applicant.ApplicantName</td>
                         <td>@applicantJob.Applicant.Title</td>
@@ -78,8 +78,10 @@
                         <td>
                             <div class="card-actions">
                                 <a class="btn btn-info" href="mailto:@applicantJob.Applicant.EmailAddress">Mail</a>
-                                <a class="btn btn-success" href="@Url.Action("Waiting", new { id = applicantJob.Id })">Accept</a>
-                                <a class="btn btn-danger" href="@Url.Action("Waiting", new { id = applicantJob.Id })">Reject</a>
+                                <a class="btn btn-success" href="@Url.Action("accepting", new { id = applicantJob.Applicant.ApplicantId })">Accept</a>
+                                <a class="btn btn-danger" href="@Url.Action("rejecting", new { id = applicantJob.Applicant.ApplicantId })">Reject</a>
+                                <a style="float:right" class="btn btn-danger" href="@Url.Action("CreateMeeting","Zoom")">Create Meeting</a>
+
                             </div>
                         </td>
                     </tr>

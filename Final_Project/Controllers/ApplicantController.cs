@@ -94,9 +94,9 @@ namespace Final_Project.Controllers
             if (!ModelState.IsValid) return View(loginVM);
 
             var user = await _userManager.FindByEmailAsync(loginVM.Email);
-            TempData["abdo"] = user.Email;
             if (user != null)
             {
+                TempData["abdo"] = user.Email;
                 var passwordCheck = await _userManager.CheckPasswordAsync(user, loginVM.Password);
                 if (passwordCheck)
                 {
