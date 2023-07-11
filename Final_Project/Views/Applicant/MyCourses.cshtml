@@ -22,7 +22,13 @@
     }
 
     .card-logo img {
-        max-width: 100%;
+        width: 100%;
+        height: 100%;
+        margin-bottom: 15px;
+    }
+
+    .card-logo  {
+        width: 100%;
         height: 100%;
         margin-bottom: 15px;
     }
@@ -44,7 +50,7 @@
 <div class="card-container">
     @foreach (var item in Model)
     {
-        <div class="card">
+        <div class="card  bg-light">
             <div class="card-logo">
                 <img src="@Url.Content("~/Server/Course_Images/"+item.Course.Image)" alt="Logo">
             </div>
