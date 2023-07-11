@@ -102,6 +102,11 @@ namespace Final_Project.Controllers
                 .Where(a => a.ApplicantId == applicant.ApplicantId).ToList();
             return View(Course);
         }
+
+        //public IActionResult search(string query)
+        //{
+
+        //}
         
     }
 }

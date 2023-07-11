@@ -1,78 +1,126 @@
 ﻿@model IEnumerable<Final_Project.Models.Course>
 
-@{
+    @{
     ViewData["Title"] = "Get All For Applicant";
-}
-
-<style>
-    .card-container {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 20px;
-        margin-left: 20px;
-        margin-top: 20px;
-        margin-bottom: 20px;
     }
 
-    .card {
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        padding: 10px;
-        width: 350px;
-    }
+    <style>
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-left: 20px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
 
-    .card-logo img {
-        width: 100%;
-        height: 100%;
-        margin-bottom: 15px;
-    }
+        .card {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            width: 350px;
+        }
 
-    .card-logo {
-        width: 100%;
-        height: 100%;
-        margin-bottom: 15px;
-    }
+        .card-logo img {
+            width: 100%;
+            height: 100%;
+            margin-bottom: 15px;
+        }
 
-    .card-details h3 {
-        margin-top: 5px;
-    }
+        .card-logo {
+            width: 100%;
+            height: 100%;
+            margin-bottom: 15px;
+        }
 
-    .card-details {
-        width: 100%;
-        height: 100%
-    }
+        .card-details h3 {
+            margin-top: 5px;
+        }
 
-    .card-actions a {
-        margin-right: 10px;
-    }
+        .card-details {
+            width: 100%;
+            height: 100%
+        }
+
+        .card-actions a {
+            margin-right: 10px;
+        }
+       /*##############*/
+        .hero {
+        background: linear-gradient(#0006, #0006), url(https://img.freepik.com/free-vector/e-learning-education-template-vector-technology-ad-banner_53876-125996.jpg?w=1060&t=st=1689098267~exp=1689098867~hmac=da741e7f9c00f679154f35b6ba00db373b48219aa813bd1fd4e0fee2c26f9823);
+            /*   background-image: url(https://source.unsplash.com/2600x1200?city); */
+            background-position: bottom;
+            background-size: cover;
+            background-repeat: no-repeat;
+            height: 50vh;
+            /*   background-color: #eee; */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+       
+        .hero-inner {
+            /*   text-align: center; */
+            padding: 0 1.5rem;
+        }
+       
+        .hero-headline {
+            margin: 0;
+            color: #fff;
+            font-weight: 400;
+        }
+
+        h2 {
+            margin: 0;
+            color: #fff;
+            font-weight: 400;
+            font-size: 1.2rem;
+        }
+
 </style>
+<!-- <header class="hero"></header> -->
+<header class="hero">
 
-<div class="card-container">
-    @foreach (var item in Model)
-    {
-        <div class="card  bg-light">
-            <div class="card-logo">
-                <img src="@Url.Content("~/Server/Course_Images/"+item.Image)" alt="Logo">
-            </div>
-            <div class="card-details">
-                <h3>Course Name:  @item.CourseName</h3>
-                <h4>Description:  @item.CourseDescription</h4>
-                <p><h3>Course Content: </h3>  @item.Content</p>
-            </div>
-            <div class="card-actions">
-                <a asp-action="adding" asp-route-id="@item.CourseId" class="btn btn-success">Apply</a>
-                <span style="float:right;font-size:larger"><b>Price: @item.Price $ </b></span>
-            </div>
+
+    <div class="hero-inner">
+
+        <h1 class="hero-headline">First Step Depends On You </h1>
+        <h2>Lest`s start to change world not us only</h2>
+
+    </div>
+
+</header>
+    <div class="row">
+        <div class="col-md-2 ">
         </div>
+        <div class="card-container col-md-8">
+            @foreach (var item in Model)
+    {
+            <div class="card  bg-light">
+                <div class="card-logo">
+                    <img src="@Url.Content("~/Server/Course_Images/"+item.Image)" alt="Logo">
+                </div>
+                <div class="card-details">
+                    <h3>Course Name:  @item.CourseName</h3>
+                    <h4>Description:  @item.CourseDescription</h4>
+                    <p><h3>Course Content: </h3>  @item.Content</p>
+                </div>
+                <div class="card-actions">
+                    <a asp-action="adding" asp-route-id="@item.CourseId" class="btn btn-success">Apply</a>
+                    <span style="float:right;font-size:larger"><b>Price: @item.Price $ </b></span>
+                </div>
+            </div>
     }
-</div>
+        </div>
+        <div class="col-md-2"></div>
 
+    </div>
 
-@section Scripts {
-    @*Use ViewBag.ClientId to load Paypal Javascript SDK*@
-    <script src="https://www.paypal.com/sdk/js?client-id=AciJN35r05hG5oaPQI19GqPlh4fHd3OX3LPbLjvu8J1n87KDMf21_wp-V_okmA_jSNOJql91U_H06wxD"></script>
+    @section Scripts {
+        @*Use ViewBag.ClientId to load Paypal Javascript SDK*@
+        <script src="https://www.paypal.com/sdk/js?client-id=AciJN35r05hG5oaPQI19GqPlh4fHd3OX3LPbLjvu8J1n87KDMf21_wp-V_okmA_jSNOJql91U_H06wxD"></script>
 
-    <script>
+        <script>
         paypal.Buttons({
             style: {
                 layout: 'vertical',
@@ -103,5 +151,5 @@
                 }).catch(error => alert(error.message));
             }
         }).render('#paypal-button-container');
-    </script>
-}
+        </script>
+    }

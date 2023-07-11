@@ -45,13 +45,59 @@
     .card-actions a {
         margin-right: 10px;
     }
-</style>
+    /*##############*/
+    .hero {
+        background: linear-gradient(#0006, #0006), url(https://img.freepik.com/free-vector/e-learning-education-template-vector-technology-ad-banner_53876-125996.jpg?w=1060&t=st=1689098267~exp=1689098867~hmac=da741e7f9c00f679154f35b6ba00db373b48219aa813bd1fd4e0fee2c26f9823);
+        /*   background-image: url(https://source.unsplash.com/2600x1200?city); */
+        background-position: bottom;
+        background-size: cover;
+        background-repeat: no-repeat;
+        height: 50vh;
+        /*   background-color: #eee; */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
-<div class="card-container">
+    .hero-inner {
+        /*   text-align: center; */
+        padding: 0 1.5rem;
+    }
+
+    .hero-headline {
+        margin: 0;
+        color: #fff;
+        font-weight: 400;
+    }
+
+    h2 {
+        margin: 0;
+        color: #fff;
+        font-weight: 400;
+        font-size: 1.2rem;
+    }
+
+</style>
+<!-- <header class="hero"></header> -->
+<header class="hero">
+
+
+    <div class="hero-inner">
+
+        <h1 class="hero-headline">First Step Depends On You </h1>
+        <h2>Lest`s start to change world not us only</h2>
+
+    </div>
+
+</header>
+<div class="row">
+    <div class="col-md-2"></div>
+
+    <div class="card-container col-md-8">
     @foreach (var item in Model)
     {
         <div class="card  bg-light">
-            <div class="card-logo">
+                <div class="card-logo ">
                 <img src="@Url.Content("~/Server/Course_Images/"+item.Course.Image)" alt="Logo">
             </div>
             <div class="card-details">
@@ -65,5 +111,7 @@
             </div>
         </div>
     }
+</div>
+<div class="col-md-2"></div>
 </div>
 

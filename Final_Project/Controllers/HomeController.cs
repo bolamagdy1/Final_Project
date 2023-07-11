@@ -55,5 +55,9 @@ namespace Final_Project.Controllers
         //    ViewBag.img = System.Text.Encoding.Default.GetString(applicant.Picture);
         //    return View(applicant);
         //}
+
+        
     }
+
 }
+

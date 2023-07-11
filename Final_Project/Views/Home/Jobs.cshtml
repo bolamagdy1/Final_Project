@@ -9,6 +9,8 @@
         flex-wrap: wrap;
         gap: 20px;
         margin-top: 20px;
+        width: 65%;
+        height: 30%;
     }
 
     .card {
@@ -34,27 +36,74 @@
     .card-actions a {
         margin-right: 10px;
     }
+    /*##############*/
+    .hero {
+        background: linear-gradient(#0006, #0006), url(https://source.unsplash.com/2600x1200?city);
+        /*   background-image: url(https://source.unsplash.com/2600x1200?city); */
+        background-position: bottom;
+        background-size: cover;
+        background-repeat: no-repeat;
+        height: 50vh;
+        /*   background-color: #eee; */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .hero-inner {
+        /*   text-align: center; */
+        padding: 0 1.5rem;
+    }
+
+    .hero-headline {
+        margin: 0;
+        color: #fff;
+        font-weight: 400;
+    }
+
+    h2 {
+        margin: 0;
+        color: #fff;
+        font-weight: 400;
+        font-size: 1.2rem;
+    }
+
 </style>
-<div class="card-container ml-4">
-    @foreach (var item in Model)
-    {
-        <div class="card  bg-light">
-            <div class="card-body">
-                <h5 class="card-title"><span class="font-weight-bold"> Job Title: </span>@item.Jop_Title  </h5>
-                <p class="card-text"><h4 class="font-weight-bold">Job Discription:</h4> @item.Jop_Description</p>
-                <p class="card-text"><h4 class="font-weight-bold">Job Requrement:</h4> @item.Jop_Requrement</p>
-                <p class="card-text"><h4 class="font-weight-bold">DeadLine:</h4> @item.DeadLine</p>
-                <div class="card-actions ">
-                    <form asp-action="Apply" asp-controller="Applicant" asp-route-id="@item.JobId">
-                        <button type="submit" class="btn btn-success">Apply</button>
-                    </form>
-                    @*<a href="@Url.Action("EditPost", new { id = item.JobId })" class="btn btn-success">Edit</a>*@
-                    @*<a href="@Url.Action("Details", new { id = item.JobId })" class="btn btn-secondary">Details</a>*@
-                    @*<a href="@Url.Action("Delete", new { id = item.JobId })" class="btn btn-danger">Delete</a>*@
+<!-- <header class="hero"></header> -->
+<header class="hero">
+
+
+    <div class="hero-inner">
+
+        <h1 class="hero-headline">First Step Depends On You </h1>
+        <h2>Lest`s start to change world not us only</h2>
+
+    </div>
+
+</header>
+<div class="row">
+    <div class="col-md-2 ml-5 mt-2">
+    </div>
+    <div class="card-container col-md-8">
+        @foreach (var item in Model)
+        {
+            <div class="card  bg-light">
+                <div class="card-body">
+                    <h5 class="card-title"><span class="font-weight-bold"> Job Title: </span>@item.Jop_Title  </h5>
+                    <p class="card-text"><h4 class="font-weight-bold">Job Discription:</h4> @item.Jop_Description</p>
+                    <p class="card-text"><h4 class="font-weight-bold">Job Requrement:</h4> @item.Jop_Requrement</p>
+                    <p class="card-text"><h4 class="font-weight-bold">DeadLine:</h4> @item.DeadLine</p>
+                    <div class="card-actions ">
+                        <form asp-action="Apply" asp-controller="Applicant" asp-route-id="@item.JobId">
+                            <button type="submit" class="btn btn-success">Apply</button>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
-    }
+        }
+    </div>
+    <div class="col-md-2"></div>
+
 </div>
 
 @*<div class="card-container">
@@ -71,6 +120,7 @@
                     <form asp-action="Apply" asp-controller="Applicant" asp-route-id="@item.JobId">
                         <button type="submit">Edit</button>
                     </form>
+                   
                     <a href="@Url.Action("Details", new { id = item.JobId })">Details</a>
                     <a href="@Url.Action("Delete", new { id = item.JobId })">Delete</a>
                 </div>
