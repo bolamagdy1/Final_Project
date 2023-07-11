@@ -108,6 +108,9 @@
                 else
                 {
                     <ul class="navbar-nav ml-auto">
+                        <li >
+                          Welcome:   @User.Identity.Name
+                        </li>
                     <li class="nav-item">
                             <form asp-action="Logout" asp-controller="Applicant">
 
@@ -115,6 +118,7 @@
                         <button type="submit" class="nav-link btn btn-danger text-white">LOGOUT</button>
                             </form>
                         </li>
+                       
                     </ul>
                 }
             </div>
