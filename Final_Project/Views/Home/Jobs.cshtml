@@ -3,55 +3,78 @@
 @{
     ViewData["Title"] = "Jobs";
 }
+<style>
+    .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin-top: 20px;
+    }
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Jop_Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Jop_Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Jop_Requrement)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DeadLine)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Company)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Jop_Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Jop_Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Jop_Requrement)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DeadLine)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Company.ConfirmPassword)
-            </td>
-            <td>
+    .card {
+        border: 1px solid black;
+        border-radius: 5px;
+        width: 100%;
+    }
+
+    .card-body {
+        padding: 10px;
+        margin: 10px;
+    }
+
+    .card-title {
+        font-size: 18px;
+        margin-top: 0;
+    }
+
+    .card-text {
+        margin-bottom: 0;
+    }
+
+    .card-actions a {
+        margin-right: 10px;
+    }
+</style>
+<div class="card-container ml-4">
+    @foreach (var item in Model)
+    {
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title"><span class="font-weight-bold"> Job Title: </span>@item.Jop_Title  </h5>
+                <p class="card-text"><h4 class="font-weight-bold">Job Discription:</h4> @item.Jop_Description</p>
+                <p class="card-text"><h4 class="font-weight-bold">Job Requrement:</h4> @item.Jop_Requrement</p>
+                <p class="card-text"><h4 class="font-weight-bold">DeadLine:</h4> @item.DeadLine</p>
+                <div class="card-actions ">
                     <form asp-action="Apply" asp-controller="Applicant" asp-route-id="@item.JobId">
-                        <button type="submit" >Edit</button> |
-                </form>
-                
-                <a asp-action="Details" asp-route-id="@item.JobId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.JobId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+                        <button type="submit" class="btn btn-success">Apply</button>
+                    </form>
+                    @*<a href="@Url.Action("EditPost", new { id = item.JobId })" class="btn btn-success">Edit</a>*@
+                    @*<a href="@Url.Action("Details", new { id = item.JobId })" class="btn btn-secondary">Details</a>*@
+                    @*<a href="@Url.Action("Delete", new { id = item.JobId })" class="btn btn-danger">Delete</a>*@
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@*<div class="card-container">
+    @foreach (var item in Model)
+    {
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">@item.Jop_Title</h5>
+                <p class="card-text">@item.Jop_Description</p>
+                <p class="card-text">@item.Jop_Requrement</p>
+                <p class="card-text">Deadline: @item.DeadLine</p>
+                <p class="card-text">Company: @item.Company.ConfirmPassword</p>
+                <div class="card-actions">
+                    <form asp-action="Apply" asp-controller="Applicant" asp-route-id="@item.JobId">
+                        <button type="submit">Edit</button>
+                    </form>
+                    <a href="@Url.Action("Details", new { id = item.JobId })">Details</a>
+                    <a href="@Url.Action("Delete", new { id = item.JobId })">Delete</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>*@

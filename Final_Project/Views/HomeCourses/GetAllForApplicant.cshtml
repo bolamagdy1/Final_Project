@@ -4,86 +4,62 @@
     ViewData["Title"] = "Get All For Applicant";
 }
 
-<h1>GetAllForAdmin</h1>
+<style>
+    .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin-left: 20px;
+        margin-top: 20px;
+        margin-bottom:20px;
+    }
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-@*<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.CourseName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Image)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CourseDescription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Content)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>*@
-        @foreach (var item in Model)
-        {
-            <div class="row">
-            <div class="card col-md-4" style="width: 18rem;">
-            @*<div class="col-md-4">
-                    <img src="data:image/*;base64,@(Convert.ToBase64String(item.Image))" />
-             </div>*@
-                <div class="card-body">
-                    <h5 class="card-title">@item.CourseName</h5>
-                    <p class="card-text">@item.CourseDescription</p>
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">@item.Category</li>
-                    <li class="list-group-item">@item.Content</li>
-                    <li class="list-group-item">@item.Price</li>
-                </ul>
-                <div class="card-body">
-                        <a asp-action="adding" asp-route-id="@item.CourseId">Apply</a>
-                </div>
-            </div>
-            </div>
-            }
-          @*  <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CourseName)
-                </td>
-                <td class="w-25 p-3" style="width:10%;height:10%">
-                    <img src="data:image/*;base64,@(Convert.ToBase64String(item.Image))" />
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CourseDescription)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Content)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Category)
-                </td>
-                <td>
-                    <a asp-action="adding" asp-route-id="@item.CourseId">Apply</a> 
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>*@
+    .card {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 10px;
+        width: 350px;
+    }
 
-<div class="text-center">
+    .card-logo img {
+        max-width: 100%;
+        height: 100%;
+        margin-bottom: 15px;
+    }
+
+    .card-details h3 {
+        margin-top: 5px;
+    }
+
+    .card-details {
+        width: 100%;
+        height: 100%
+    }
+    .card-actions a {
+        margin-right: 10px;
+    }
+</style>
+
+<div class="card-container">
+    @foreach (var item in Model)
+    {
+        <div class="card">
+            <div class="card-logo">
+                <img src="@Url.Content("~/Server/Logos/"+item.Image)" alt="Logo">
+            </div>
+            <div class="card-details">
+                <h3>Course Name:  @item.CourseName</h3>
+                <h4>Description:  @item.CourseDescription</h4>
+                <p><h3>Course Content: </h3>  @item.Content</p>
+            </div>
+            <div class="card-actions">
+                <a asp-action="adding" asp-route-id="@item.CourseId" class="btn btn-success">Apply</a>
+                <span style="float:right;font-size:larger"><b>Price: @item.Price $ </b></span>
+            </div>
+        </div>
+    }
+</div>
+<div class="text-center" style="padding-left:450px">
     <div id="paypal-button-container"></div>
 </div>
 

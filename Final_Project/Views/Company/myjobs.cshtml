@@ -3,13 +3,13 @@
 @{
     ViewData["Title"] = "myjobs";
 }
-<h1 class="ml-5 pl-5">myjobs</h1>
 
 <style>
     .card-container {
         display: flex;
         flex-wrap: wrap;
         gap: 20px;
+        margin-top:20px;
         
     }
 
@@ -21,6 +21,7 @@
 
     .card-body {
         padding: 10px;
+        margin:10px;
     }
 
     .card-title {
@@ -41,14 +42,14 @@
     {
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">Job Title:  @item.Jop_Title</h5>
-                <p class="card-text">Job Discription: @item.Jop_Description</p>
-                <p class="card-text">Job Requrement: @item.Jop_Requrement</p>
-                <p class="card-text">DeadLine:  Deadline: @item.DeadLine</p>
-                <div class="card-actions">
-                    <a href="@Url.Action("EditPost", new { id = item.JobId })">Edit</a>
-                    <a href="@Url.Action("Details", new { id = item.JobId })">Details</a>
-                    <a href="@Url.Action("Delete", new { id = item.JobId })">Delete</a>
+                <h5 class="card-title"><span class="font-weight-bold"> Job Title: </span>@item.Jop_Title  </h5>
+                <p class="card-text"><h4 class="font-weight-bold">Job Discription:</h4> @item.Jop_Description</p>
+                <p class="card-text"><h4 class="font-weight-bold">Job Requrement:</h4> @item.Jop_Requrement</p>
+                <p class="card-text"><h4 class="font-weight-bold">DeadLine:</h4> @item.DeadLine</p>
+                <div class="card-actions ">
+                    <a href="@Url.Action("EditPost", new { id = item.JobId })" class="btn btn-success">Edit</a>
+                    @*<a href="@Url.Action("Details", new { id = item.JobId })" class="btn btn-secondary">Details</a>*@
+                    <a href="@Url.Action("Delete", new { id = item.JobId })" class="btn btn-danger">Delete</a>
                 </div>
             </div>
         </div>

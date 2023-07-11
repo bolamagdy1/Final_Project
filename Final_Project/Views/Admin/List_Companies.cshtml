@@ -9,30 +9,31 @@
         flex-wrap: wrap;
         gap: 20px;
         margin-left:20px;
+        margin-top:20px;
     }
 
     .card {
         border: 1px solid #ccc;
         border-radius: 5px;
         padding: 10px;
-        width: 300px;
+        width: 350px;
     }
 
     .card-logo img {
-        max-width: 100%;
-        height: auto;
+        width: 100%;
+        height: 100%;
         margin-bottom:15px;
     }
 
     .card-details h3 {
-        margin-top: 0;
+        margin-top: 5px;
+       
     }
 
     .card-actions a {
-        margin-right: 10px;
+        margin-right: 2px;
     }
 </style>
-<h1>List_Companies</h1>
 <div class="card-container">
     @foreach (var item in Model)
     {
@@ -42,16 +43,16 @@
             </div>
             <div class="card-details">
                 <h3>Company Name:  @item.CompanyName</h3>
-                <p>Company address:  @item.Address</p>
+                <h3>Company address:  @item.Address</h3>
                 <a href="~/Server/Docs1/@item.Doc1" download="">Commercial Record <i class="fa fa-download" aria-hidden="true"></i></a>
                 <br>
                 <a href="~/Server/Docs2/@item.Doc2" download="">Tax card <i class="fa fa-download" aria-hidden="true"></i></a>
-                <p>Trusted: @item.Trusted</p>
+                
             </div>
-            <div class="card-actions">
-                <a href="@Url.Action("Approve", new { id = item.CompanyId })">Approve</a>
-                <a href="@Url.Action("Details", new { id = item.CompanyId })">Details</a>
-                <a href="@Url.Action("Delete", new { id = item.CompanyId })">Delete</a>
+            <div class="card-actions btn-group" >
+                <a href="@Url.Action("Approve", new { id = item.CompanyId })" class="btn btn-success" >Approve</a>
+                <a href="@Url.Action("Details", new { id = item.CompanyId })" class="btn btn-secondary">Details</a>
+                <a href="@Url.Action("Delete", new { id = item.CompanyId })" class="btn btn-danger">Delete</a>
             </div>
         </div>
     }

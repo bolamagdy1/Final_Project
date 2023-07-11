@@ -128,7 +128,7 @@ namespace Final_Project.Controllers
             Applicant_Job applicant_job = new Applicant_Job() { ApplicantId = applicant.ApplicantId, JobId = job.JobId };
             _context.applicants_jobs.Add(applicant_job);
             _context.SaveChanges();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Jobs", "Home");
         }
         public IActionResult MyApplies()
         {
