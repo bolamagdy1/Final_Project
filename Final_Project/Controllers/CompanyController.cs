@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using NuGet.Packaging;
 using System.Net.Mail;
 using System.Net;
+using System.Linq;
 
 namespace Final_Project.Controllers
 {
@@ -181,7 +182,7 @@ namespace Final_Project.Controllers
             return RedirectToAction("myjobs");
         }
         [HttpGet]
-        public IActionResult Appliers() 
+        public IActionResult Appliers()
         {
             var company = _context.companies.FirstOrDefault(e => e.EmailAddress == TempData.Peek("abdo"));
             var jobs = _context.jobs.Where(e => e.CompanyId == company.CompanyId).ToList();
@@ -204,6 +205,70 @@ namespace Final_Project.Controllers
                 .Where(ww=>ww.Job.CompanyId == company.CompanyId)
                 .ToList();
             return View(applicants);
+        }
+        public IActionResult Filterbyjobtilte(string word)
+        {
+            var company = _context.companies.FirstOrDefault(e => e.EmailAddress == TempData.Peek("abdo"));
+            var jobs = _context.jobs.Where(e => e.CompanyId == company.CompanyId).ToList();
+
+            List<Applicant_Job> apps_jobs = new List<Applicant_Job>();
+
+            string[] arr = new string[apps_jobs.Count];
+
+            foreach (var job in jobs)
+            {
+                apps_jobs = _context.applicants_jobs.Include(j => j.Job).Where(a => a.JobId == job.JobId).ToList();
+                arr.Append(job.Jop_Title);
+            }
+            ViewBag.bola = new List<string>();
+            ViewBag.bola = arr;
+            var applicants = _context.applicants_jobs
+                .Include(a => a.Applicant)
+                .Include(a => a.Job)
+                .ThenInclude(j => j.Company)
+                .Where(ww => ww.Job.CompanyId == company.CompanyId)
+                .ToList();
+            if (string.IsNullOrEmpty(word))
+            { 
+                return View("Appliers", applicants);
+            }
+            else
+            {
+                var filteredResultNew = applicants.Where(n => n.Job.Jop_Title.Contains(word, StringComparison.CurrentCultureIgnoreCase)).ToList();
+                return View("Appliers", filteredResultNew);
+            }
+        }
+        public IActionResult Filterbyapplicanttilte(string word)
+        {
+            var company = _context.companies.FirstOrDefault(e => e.EmailAddress == TempData.Peek("abdo"));
+            var jobs = _context.jobs.Where(e => e.CompanyId == company.CompanyId).ToList();
+
+            List<Applicant_Job> apps_jobs = new List<Applicant_Job>();
+
+            string[] arr = new string[apps_jobs.Count];
+
+            foreach (var job in jobs)
+            {
+                apps_jobs = _context.applicants_jobs.Include(j => j.Job).Where(a => a.JobId == job.JobId).ToList();
+                arr.Append(job.Jop_Title);
+            }
+            ViewBag.bola = new List<string>();
+            ViewBag.bola = arr;
+            var applicants = _context.applicants_jobs
+                .Include(a => a.Applicant)
+                .Include(a => a.Job)
+                .ThenInclude(j => j.Company)
+                .Where(ww => ww.Job.CompanyId == company.CompanyId)
+                .ToList();
+            if (string.IsNullOrEmpty(word))
+            {
+                return View("Appliers", applicants);
+            }
+            else
+            {
+                var filteredResultNew = applicants.Where(n => n.Applicant.Title.Contains(word, StringComparison.CurrentCultureIgnoreCase)).ToList();
+                return View("Appliers", filteredResultNew);
+            }
         }
         public IActionResult accepting(int id)
         {
@@ -229,6 +294,9 @@ namespace Final_Project.Controllers
             smtpClient.Send(message);
 
             var applied = _context.applicants_jobs.FirstOrDefault(i => i.ApplicantId == applicant.ApplicantId);
+            var accept = _context.accepted
+                .FirstOrDefault(a => a.ApplicantId == applicant.ApplicantId && a.JobId == applied.JobId);
+            accept.Extra = "Accepted";
             _context.applicants_jobs.Remove(applied);
             _context.SaveChanges();
 
@@ -258,10 +326,87 @@ namespace Final_Project.Controllers
             smtpClient.Send(message);
 
             var applied = _context.applicants_jobs.FirstOrDefault(i => i.ApplicantId == applicant.ApplicantId);
+            var accept = _context.accepted
+                .FirstOrDefault(a => a.ApplicantId == applicant.ApplicantId && a.JobId == applied.JobId);
+            accept.Extra = "Rejected";
             _context.applicants_jobs.Remove(applied);
             _context.SaveChanges();
 
             return RedirectToAction("Appliers");
+        }
+        public IActionResult AcceptedList()
+        {
+            var company = _context.companies.FirstOrDefault(e => e.EmailAddress == TempData.Peek("abdo"));
+            var jobs = _context.jobs.Where(e => e.CompanyId == company.CompanyId).ToList();
+            //List<Applicant> applicants = new List<Applicant>();
+            //var applicants = _context.applicants_jobs
+            //    .Include(a => a.Applicant)
+            //    .Include(a => a.Job)
+            //    .ThenInclude(j => j.Company)
+            //    .Where(ww => ww.Job.CompanyId == company.CompanyId)
+            //    .ToList();
+            List<Accepted> accepteds = new List<Accepted>();
+            List<Applicant> acceptedApplicants = new List<Applicant>();
+            Applicant_Job applicant_job = new Applicant_Job();
+            List<Applicant_Job> applicant_jobs = new List<Applicant_Job>();
+            foreach (var job in jobs)
+            {
+                accepteds = _context.accepted
+                .Include(a => a.Applicant)
+                .Include(c => c.Job)
+                .Where(a => a.Extra == "Accepted" && a.Job.JobId == job.JobId).ToList();
+                foreach (var accepted in accepteds)
+                {
+                    acceptedApplicants.Add(accepted.Applicant);
+                    applicant_job.Applicant = accepted.Applicant;
+                    applicant_job.Job = accepted.Job;
+                    applicant_job.ApplicantId = accepted.ApplicantId;
+                    applicant_job.JobId = accepted.JobId;
+                    applicant_jobs.Add(applicant_job);
+                }
+            }
+
+            //acceptedApplicants 
+            return View("Appliers", applicant_jobs);
+
+            //var acceptedlist = _context.applicants.Where(j=>j)
+        }
+        public IActionResult RejectedList()
+        {
+            var company = _context.companies.FirstOrDefault(e => e.EmailAddress == TempData.Peek("abdo"));
+            var jobs = _context.jobs.Where(e => e.CompanyId == company.CompanyId).ToList();
+            //List<Applicant> applicants = new List<Applicant>();
+            //var applicants = _context.applicants_jobs
+            //    .Include(a => a.Applicant)
+            //    .Include(a => a.Job)
+            //    .ThenInclude(j => j.Company)
+            //    .Where(ww => ww.Job.CompanyId == company.CompanyId)
+            //    .ToList();
+            List<Accepted> accepteds = new List<Accepted>();
+            List<Applicant> acceptedApplicants = new List<Applicant>();
+            Applicant_Job applicant_job = new Applicant_Job();
+            List<Applicant_Job> applicant_jobs = new List<Applicant_Job>();
+            foreach (var job in jobs)
+            {
+                accepteds = _context.accepted
+                .Include(a => a.Applicant)
+                .Include(c => c.Job)
+                .Where(a => a.Extra == "Rejected" && a.Job.JobId == job.JobId).ToList();
+                foreach (var accepted in accepteds)
+                {
+                    acceptedApplicants.Add(accepted.Applicant);
+                    applicant_job.Applicant = accepted.Applicant;
+                    applicant_job.Job = accepted.Job;
+                    applicant_job.ApplicantId = accepted.ApplicantId;
+                    applicant_job.JobId = accepted.JobId;
+                    applicant_jobs.Add(applicant_job);
+                }
+            }
+
+            //acceptedApplicants 
+            return View("Appliers", applicant_jobs);
+
+            //var acceptedlist = _context.applicants.Where(j=>j)
         }
     }
 }
