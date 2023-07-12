@@ -1,8 +1,10 @@
 ﻿using Final_Project.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Final_Project.Controllers
 {
+    [Authorize(Roles ="admin")]
     public class AdminController : Controller
     {
         private readonly AppDbContext _context;
@@ -14,6 +16,7 @@ namespace Final_Project.Controllers
         {
             return View();
         }
+        
         public IActionResult List_Companies()
         {
             var companies = _context.companies.Where(t=>t.Trusted == false).ToList();

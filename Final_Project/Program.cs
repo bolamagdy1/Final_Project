@@ -29,6 +29,12 @@ namespace Final_Project
                 options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
             });
 
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Applicant/Login";
+                //options.AccessDeniedPath = "/Account/AccessDenied";
+            });
+
             builder.Services.AddSingleton(x =>
             new PaypalClient(
             builder.Configuration["PayPalOptions:ClientId"],
@@ -36,6 +42,7 @@ namespace Final_Project
             builder.Configuration["PayPalOptions:Mode"]
         )
     );
+            
 
             var app = builder.Build();
 
@@ -45,12 +52,15 @@ namespace Final_Project
                 app.UseExceptionHandler("/Home/Error");
             }
             app.UseStaticFiles();
+
+            app.UseCookiePolicy();
             
             app.UseRouting();
             app.UseSession();
 
             app.UseAuthentication();
             app.UseAuthorization();
+            
 
             app.MapControllerRoute(
                 name: "default",
