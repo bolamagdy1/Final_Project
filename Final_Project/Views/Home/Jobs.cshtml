@@ -9,7 +9,7 @@
         flex-wrap: wrap;
         gap: 20px;
         margin-top: 20px;
-        width: 65%;
+        width: 90%;
         height: 30%;
     }
 
@@ -72,22 +72,27 @@
 <!-- <header class="hero"></header> -->
 <header class="hero">
 
+   @* <div class="box_main">
+        
+    </div>*@
 
-    <div class="hero-inner">
-
-        <h1 class="hero-headline">First Step Depends On You </h1>
-        <h2>Lest`s start to change world not us only</h2>
-
+    <div>
+        <h1 style="text-align:center" class="hero-headline">First Step Depends On You </h1>
+        <h2 style="justify-content:center">Lest`s start to change world not us only</h2>
+        <br />
+        <form asp-action="search" asp-controller="Home">
+            <input name="word" type="text" class="email_bt" placeholder="Search Job" name="">
+            <button type="submit" class="subscribe_bt">Search</button>
+        </form>
     </div>
 
 </header>
-<div class="row">
-    <div class="col-md-2 ml-5 mt-2">
-    </div>
+<div style="justify-content:center" class="row">
+    <div class="col-md-2 ml-5 mt-2"></div>
     <div class="card-container col-md-8">
         @foreach (var item in Model)
         {
-            <div class="card  bg-light">
+            <div class="card bg-light">
                 <div class="card-body">
                     <h5 class="card-title"><span class="font-weight-bold"> Job Title: </span>@item.Jop_Title  </h5>
                     <p class="card-text"><h4 class="font-weight-bold">Job Discription:</h4> @item.Jop_Description</p>

@@ -18,6 +18,30 @@ namespace Final_Project.Controllers
         {
             return View();
         }
+        public IActionResult search(string word)
+        {
+            var applicant = _context.applicants.FirstOrDefault(e => e.EmailAddress == TempData.Peek("abdo"));
+            var jobss = _context.applicants_jobs.Include(j => j.Job)
+                .Where(a => a.ApplicantId == applicant.ApplicantId).ToList();
+
+            var jobs = _context.jobs.Include(i => i.Company).ToList();
+
+            foreach (var job in jobss)
+            {
+                jobs.Remove(job.Job);
+            }
+
+            if (string.IsNullOrEmpty(word))
+            {
+                return View("Jobs",jobs);
+            }
+            else
+            {
+               //var filteredResultNew = jobs.Where(n => string.Equals(n.Jop_Title, word, StringComparison.CurrentCultureIgnoreCase) || string.Equals(n.Jop_Description, word, StringComparison.CurrentCultureIgnoreCase)).ToList();
+                var filteredResultNew = jobs.Where(n => n.Jop_Title.Contains(word, StringComparison.CurrentCultureIgnoreCase) || n.Jop_Description.Contains(word, StringComparison.CurrentCultureIgnoreCase)).ToList();
+                return View("Jobs",filteredResultNew);
+            }
+        }
         public IActionResult Jobs()
         {
             try

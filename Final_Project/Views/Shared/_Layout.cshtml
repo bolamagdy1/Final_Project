@@ -24,7 +24,7 @@
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="logo" asp-action="index" asp-controller="Home"><img src="~/images/after1.png"></a>
+            <a style="width:150px;height:auto;margin-top:12px" class="logo" asp-action="index" asp-controller="Home"><img src="~/images/after1.png"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -97,18 +97,40 @@
                 else
                 {
                     <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <div class="dropdown">
+                                <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Welcome: @User.Identity.Name
+                                </button>
+                                <div class="dropdown-menu login_text" aria-labelledby="dropdownMenuButton">
+                                    <form asp-action="Logout" asp-controller="Applicant">
+                                        <button type="submit" class="btn text-black-50">LOGOUT</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    @*<div style="margin-right:90px" class="dropdown ml-auto">
+                        <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Welcome: @User.Identity.Name
+                        </button>
+                        <div class="dropdown-menu login_text" aria-labelledby="dropdownMenuButton">
+                            <form asp-action="Logout" asp-controller="Applicant">
+                                <button type="submit" class="text-black-50">LOGOUT</button>
+                            </form>
+                        </div>
+                    </div>*@
+                    @*<ul class="navbar-nav ml-auto">
                         <li class="mt-2 mr-4 h6 text-primary border border-primary rounded p-2 " style="cursor:pointer">
                             <b>Welcome: </b>  &ensp; @User.Identity.Name
                         </li>
                     <li class="nav-item">
                             <form asp-action="Logout" asp-controller="Applicant">
-
-
                                 <button type="submit" class="nav-link btn btn-outline-danger text-black-50">LOGOUT</button>
                             </form>
                         </li>
                        
-                    </ul>
+                    </ul>*@
                 }
             </div>
         </nav>
@@ -117,8 +139,9 @@
             @RenderBody()
         </main>
     <div class="footer_section layout_padding">
-        <div class="container">
+        <div style="text-align:center" class="container">
             <h1 class="subscribr_text">Join Now</h1>
+            @*<div class="apply_bt">Join now</div>*@
             <p class="lorem_text">“Start where you are. Use what you have. Do what you can.” </p>
         </div>
     </div>
@@ -126,7 +149,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <p class="copyright_text">Copyright 2020 All Right Reserved By.<a href="https://html.design"> Free  html Templates</a></p>
+                    <p class="copyright_text">&copy;Copyright 2023 All Right Reserved By JE-Journy</p>
                 </div>
                 <div class="col-md-6">
                     <p class="cookies_text">Cookies, Privacy and Terms</p>
