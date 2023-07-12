@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Final_Project.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,12 +18,15 @@ namespace Final_Project.Migrations
                     ApplicantId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ApplicantName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
-                    Picture = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    EmailAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ConfirmPassword = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Picture = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Phone = table.Column<string>(type: "nvarchar(13)", maxLength: 13, nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: false),
                     Age = table.Column<int>(type: "int", nullable: false),
-                    CV = table.Column<byte[]>(type: "varbinary(max)", nullable: false)
+                    CV = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -49,7 +52,7 @@ namespace Final_Project.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FullName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -76,11 +79,15 @@ namespace Final_Project.Migrations
                 {
                     CompanyId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Logo = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    Logo = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CompanyName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EmailAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ConfirmPassword = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Doc1 = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
-                    Doc2 = table.Column<byte[]>(type: "varbinary(max)", nullable: false)
+                    Doc1 = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Doc2 = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Trusted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -94,15 +101,32 @@ namespace Final_Project.Migrations
                     CourseId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CourseName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Image = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CourseDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<double>(type: "float", nullable: false),
-                    Type = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Category = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_courses", x => x.CourseId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Meeting",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Topic = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Agenda = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Time = table.Column<int>(type: "int", nullable: false),
+                    Duration = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Meeting", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -266,7 +290,7 @@ namespace Final_Project.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Videos = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    Videos = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CourseId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -277,6 +301,34 @@ namespace Final_Project.Migrations
                         column: x => x.CourseId,
                         principalTable: "courses",
                         principalColumn: "CourseId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "accepted",
+                columns: table => new
+                {
+                    AcceptedId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Extra = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    JobId = table.Column<int>(type: "int", nullable: false),
+                    ApplicantId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_accepted", x => x.AcceptedId);
+                    table.ForeignKey(
+                        name: "FK_accepted_applicants_ApplicantId",
+                        column: x => x.ApplicantId,
+                        principalTable: "applicants",
+                        principalColumn: "ApplicantId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_accepted_jobs_JobId",
+                        column: x => x.JobId,
+                        principalTable: "jobs",
+                        principalColumn: "JobId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -305,6 +357,16 @@ namespace Final_Project.Migrations
                         principalColumn: "JobId",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_accepted_ApplicantId",
+                table: "accepted",
+                column: "ApplicantId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_accepted_JobId",
+                table: "accepted",
+                column: "JobId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_applicants_jobs_ApplicantId",
@@ -380,6 +442,9 @@ namespace Final_Project.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "accepted");
+
+            migrationBuilder.DropTable(
                 name: "applicants_jobs");
 
             migrationBuilder.DropTable(
@@ -402,6 +467,9 @@ namespace Final_Project.Migrations
 
             migrationBuilder.DropTable(
                 name: "c_vs");
+
+            migrationBuilder.DropTable(
+                name: "Meeting");
 
             migrationBuilder.DropTable(
                 name: "jobs");

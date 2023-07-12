@@ -48,7 +48,25 @@
             color: #333;
         }
 </style>
+<header class="hero">
 
+    <div>
+        <h1 style="text-align:center" class="hero-headline">First Step Depends On You </h1>
+        <h2 style="justify-content:center">Lest`s start to change world not us only</h2>
+        <br />
+        <form asp-action="Filterbyjobtilte" asp-controller="Company">
+            <input name="word" type="text" class="email_bt" placeholder="Search...">
+            <button type="submit" class="subscribe_bt">Search by applicant title</button>
+        </form>
+        
+        <form asp-action="Filterbyapplicanttilte" asp-controller="Company">
+            <input name="word" type="text" class="email_bt" placeholder="Search...">
+            <button type="submit" class="subscribe_bt">Search by applicant title</button>
+        </form>
+    </div>
+
+</header>
+<br /><br />
 <div class="table-container">
     @foreach (var group in Model.GroupBy(item => item.JobId))
     {
