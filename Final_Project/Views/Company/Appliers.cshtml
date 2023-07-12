@@ -19,7 +19,7 @@
 
         .card-table th,
         .card-table td {
-            border: 1px solid #ccc;
+            border: 1px solid black;
             padding: 10px;
         }
 
@@ -48,8 +48,28 @@
             color: #333;
         }
 </style>
+<div class="row mt-4">
+    <div class="col-md-2"> </div>
+    <div class="col-md-4">
+        <form asp-action="Filterbyjobtilte" asp-controller="Company">
+            <input name="word" type="text" class="email_bt" placeholder="Search...">
+            <button type="submit" class="subscribe_bt">Search Job </button>
+        </form>
+    </div>
+    <div class="col-md-4">
+        <form asp-action="Filterbyapplicanttilte" asp-controller="Company">
+            <input name="word" type="text" class="email_bt" placeholder="Search...">
+            <button type="submit" class="subscribe_bt ">Search applicant</button>
+        </form>
+    </div>
+    <div class="col-md-2"> </div>
 
-<div class="table-container">
+
+
+</div>
+<div class="row">
+    <div class="col-md-1"></div>
+<div class="table-container col-md-10 ">
     @foreach (var group in Model.GroupBy(item => item.JobId))
     {
         var job = group.FirstOrDefault()?.Job;
@@ -57,13 +77,15 @@
         {
             <table class="card-table table-hover ">
                 <tr>
-                    <th colspan="5" class="card-title">@job.Jop_Title</th>
+                    <th colspan="7" class="card-title">@job.Jop_Title</th>
                 </tr>
                 <tr>
                     <th>Image</th>
                     <th>Name</th>
                     <th>Title</th>
                     <th>CV</th>
+                    <th>Age</th>
+                    <th>Phone</th>
                     <th>Actions</th>
                 </tr>
                 @foreach (var applicantJob in group)
@@ -75,6 +97,8 @@
                         <td>@applicantJob.Applicant.ApplicantName</td>
                         <td>@applicantJob.Applicant.Title</td>
                         <td> <a href="~/Server/CVs/@applicantJob.Applicant.CV" download="">CV <i class="fa fa-download" aria-hidden="true"></i></a></td>
+                        <td>@applicantJob.Applicant.Age</td>
+                        <td>@applicantJob.Applicant.Phone</td>
                         <td>
                             <div class="card-actions">
                                 <a class="btn btn-info" href="mailto:@applicantJob.Applicant.EmailAddress">Mail</a>
@@ -90,5 +114,6 @@
         }
     }
 </div>
+    <div class="col-md-1"></div>
 
-
+</div>

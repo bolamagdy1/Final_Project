@@ -52,9 +52,9 @@
                 <p class="card-text"><h4 class="font-weight-bold">Job Requrement:</h4> @item.Jop_Requrement</p>
                 <p class="card-text"><h4 class="font-weight-bold">DeadLine:</h4> @item.DeadLine</p>
                 <div class="card-actions ">
-                    <a href="@Url.Action("EditPost", new { id = item.JobId })" class="btn btn-success">Edit</a>
+                        <a href="@Url.Action("EditPost", new { id = item.JobId })" class="btn btn-outline-success"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                     @*<a href="@Url.Action("Details", new { id = item.JobId })" class="btn btn-secondary">Details</a>*@
-                    <a onclick="javascript: return SubmitForm();" href="@Url.Action("Delete", new { id = item.JobId })" class="btn btn-danger">Delete</a>
+                        <a onclick="javascript: return SubmitForm();" href="@Url.Action("Delete", new { id = item.JobId })" class="btn btn-outline-danger"> <i class="fa fa-trash-o" aria-hidden="true"></i></a>
                 </div>
             </div>
         </div>

@@ -49,10 +49,15 @@
                 <a href="~/Server/Docs2/@item.Doc2" download="">Tax card <i class="fa fa-download" aria-hidden="true"></i></a>
                 
             </div>
-            <div class="card-actions btn-group" >
-                <a href="@Url.Action("Approve", new { id = item.CompanyId })" class="btn btn-success" >Approve</a>
-                <a href="@Url.Action("Details", new { id = item.CompanyId })" class="btn btn-secondary">Details</a>
-                <a href="@Url.Action("Delete", new { id = item.CompanyId })" class="btn btn-danger">Delete</a>
+            <div class="card-actions btn-group justify-content-center" >
+
+                <a href="@Url.Action("Approve", new { id = item.CompanyId })" class="btn btn-outline-info "><i class="fa fa-check" aria-hidden="true"> </i></a>
+                
+                @*<a href="@Url.Action("Details", new { id = item.CompanyId })" class="btn btn-secondary">Details</a>*@
+                <a href="@Url.Action("Delete", new { id = item.CompanyId })" class="btn btn-outline-danger">
+                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+
+                </a>
             </div>
         </div>
     }

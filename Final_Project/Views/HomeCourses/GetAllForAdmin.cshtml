@@ -57,10 +57,10 @@
                 <h4>Description:  @item.CourseDescription</h4>
                 <p><h3>Course Content: </h3> @item.Content</p>
             </div>
-            <div class="card-actions">
-                <a asp-action="Edit" asp-route-id="@item.CourseId" class="btn btn-success">Edit</a> |
+            <div class="card-actions  btn-group justify-content-center">
+                <a asp-action="Edit" asp-route-id="@item.CourseId" class="btn btn-outline-success"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a> 
                 @*<a asp-action="Details" asp-route-id="@item.CourseId" class="btn btn-info">Details</a> |*@
-                <a asp-action="Delete" asp-route-id="@item.CourseId" class="btn btn-danger">Delete</a>
+                <a asp-action="Delete" asp-route-id="@item.CourseId" class="btn btn-outline-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
             </div>
         </div>
     }
