@@ -50,7 +50,7 @@ namespace Final_Project.Controllers
                 var jobss = _context.applicants_jobs.Include(j => j.Job)
                     .Where(a => a.ApplicantId == applicant.ApplicantId).ToList();
 
-                var jobs = _context.jobs.Include(i => i.Company).ToList();
+                var jobs = _context.jobs.Include(i => i.Company).Where(d=>d.DeadLine>DateTime.Now).ToList();
 
                 foreach (var job in jobss)
                 {

@@ -60,6 +60,9 @@
                         <li>
                             <a class="nav-link" asp-action="MyCourses" asp-controller="Applicant">My Courses</a>
                         </li>
+                        <li>
+                            <button type="button" asp-action="notification" asp-controller="Applicant" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+                        </li>
                     }
                     @if (User.IsInRole("admin"))
                     {
@@ -135,6 +138,22 @@
             </div>
         </nav>
     </header>
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Modal Header</h4>
+                </div>
+                <div class="modal-body">
+                    @*@Html.Partial("notification")*@
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
         <main role="main" >
             @RenderBody()
         </main>
