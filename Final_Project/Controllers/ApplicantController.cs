@@ -4,6 +4,7 @@ using Final_Project.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using PayPal.Api;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Final_Project.Controllers
@@ -150,6 +151,7 @@ namespace Final_Project.Controllers
             return View(courses);
 
         }
+        [HttpGet]
         public IActionResult notification()
         {
             var applicant = _context.applicants.FirstOrDefault(e => e.EmailAddress == TempData.Peek("abdo"));
@@ -158,7 +160,7 @@ namespace Final_Project.Controllers
                 .Include(j=>j.Job)
                 .ThenInclude(c=>c.Company)
                 .Where(i => i.ApplicantId == applicant.ApplicantId).ToList();
-            return PartialView(accepted);
+            return View(accepted);
         }
     }
 }

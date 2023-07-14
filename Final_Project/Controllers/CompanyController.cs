@@ -115,6 +115,7 @@ namespace Final_Project.Controllers
                     {
                         return RedirectToAction("Index", "Home");
                     }
+
                 }
                 TempData["Error"] = "Wrong credentials. Please, try again!";
                 return View(loginVM);
