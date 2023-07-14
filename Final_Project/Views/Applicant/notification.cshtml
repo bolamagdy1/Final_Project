@@ -1,5 +1,11 @@
 ﻿@model IEnumerable<Final_Project.Models.Accepted>
 
+@{
+    ViewData["Title"] = "notification";
+}
+
+<h1>notification</h1>
+
 <p>
     <a asp-action="Create">Create New</a>
 </p>
@@ -13,10 +19,10 @@
                 @Html.DisplayNameFor(model => model.Extra)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Job.Jop_Title)
+                @Html.DisplayNameFor(model => model.Job)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Job.Company.CompanyName)
+                @Html.DisplayNameFor(model => model.Applicant)
             </th>
             <th></th>
         </tr>
@@ -31,12 +37,12 @@
                 @Html.DisplayFor(modelItem => item.Extra)
             </td>
             <td>
-                    @Html.DisplayFor(modelItem => item.Job.Jop_Title)
+                @Html.DisplayFor(modelItem => item.Job.Jop_Title)
             </td>
             <td>
-                    @Html.DisplayFor(modelItem => item.Job.Company.CompanyName)
+                @Html.DisplayFor(modelItem => item.Job.Company.CompanyName)
             </td>
-            @*<td>
+@*            <td>
                 <a asp-action="Edit" asp-route-id="@item.AcceptedId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.AcceptedId">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.AcceptedId">Delete</a>

@@ -1,4 +1,5 @@
-﻿@inject UserManager<ApplicationUser> UserManager;
+﻿@using Microsoft.AspNetCore.Http.HttpResults;
+@inject UserManager<ApplicationUser> UserManager;
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,6 +43,12 @@
                         <li>
                             <a class="nav-link" asp-action="Appliers" asp-controller="Company">Jobs & Applicant Details </a>
                         </li>
+                        <li>
+                            <a class="nav-link" asp-action="AcceptedList" asp-controller="Company">Accepted</a>
+                        </li>
+                        <li>
+                            <a class="nav-link" asp-action="RejectedList" asp-controller="Company">Rejected </a>
+                        </li>
                     }
                     @if (User.IsInRole("applicant"))
                     {
@@ -50,6 +57,9 @@
                         </li>
                         <li>
                             <a class="nav-link" asp-action="MyApplies" asp-controller="Applicant">My Jobs</a>
+                        </li>
+                        <li>
+                            <a class="nav-link" asp-action="notification" asp-controller="Applicant">Jobs Statue</a>
                         </li>
 @*                        <li>
                             <a class="nav-link" asp-action="MyCourses" asp-controller="Applicant">My Courses</a>
@@ -60,9 +70,9 @@
                         <li>
                             <a class="nav-link" asp-action="MyCourses" asp-controller="Applicant">My Courses</a>
                         </li>
-                        <li>
+                     @*   <li>
                             <button type="button" asp-action="notification" asp-controller="Applicant" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
-                        </li>
+                        </li>*@
                     }
                     @if (User.IsInRole("admin"))
                     {
@@ -138,28 +148,14 @@
             </div>
         </nav>
     </header>
-    <div id="myModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Modal Header</h4>
-                </div>
-                <div class="modal-body">
-                    @*@Html.Partial("notification")*@
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
         <main role="main" >
             @RenderBody()
         </main>
     <div class="footer_section">
         <div style="text-align:center" class="container">
-            <h1 class="subscribr_text">Join Now</h1>
+            
+            <h1 class="subscribr_text">Contact Us</h1>
+            <h4 style="color:white">JE Journey@gmail.com</h4>
             @*<div class="apply_bt">Join now</div>*@
             <p class="lorem_text">“Start where you are. Use what you have. Do what you can.” </p>
         </div>
@@ -176,6 +172,7 @@
             </div>
         </div>
     </div>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
@@ -189,6 +186,23 @@
 	@*<script src="~/js/custom.js"></script>*@
 	<!-- javascript -->
 	<script src="~/js/owl.carousel.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#myModal').on('/Applicant/notification', function () {
+                $.ajax({
+                    url: '/Applicant/notification',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        $('#notificationPartial').html(data);
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(error);
+                    }
+                });
+            });
+        });
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
