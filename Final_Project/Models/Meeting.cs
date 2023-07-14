@@ -1,4 +1,6 @@
-﻿namespace Final_Project.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Final_Project.Models
 {
     public class Meeting
     {
