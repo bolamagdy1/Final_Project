@@ -29,7 +29,7 @@ namespace Final_Project.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Create(Applicant applicant , IFormCollection formFile)
+        public async Task<IActionResult> Create(Applicant applicant, IFormCollection formFile)
         {
             string target_folder = "wwwroot/Server/";
             var user = await _userManager.FindByEmailAsync(applicant.EmailAddress);
@@ -55,7 +55,7 @@ namespace Final_Project.Controllers
                 TempData["bola"] = newUserResponse;
                 return View(applicant);
             }
-            
+
             var sameuser = await _userManager.FindByEmailAsync(applicant.EmailAddress);
 
             var _FileName1 = applicant.ApplicantName + formFile.Files[0].FileName;
@@ -82,9 +82,9 @@ namespace Final_Project.Controllers
             _context.applicants.Add(applicant);
             _context.SaveChanges();
 
-            
 
-            return RedirectToAction("Index","Home");
+
+            return RedirectToAction("Index", "Home");
         }
         public IActionResult Login() => View(new Login());
 
@@ -129,7 +129,7 @@ namespace Final_Project.Controllers
             Applicant_Job applicant_job = new Applicant_Job() { ApplicantId = applicant.ApplicantId, JobId = job.JobId };
             _context.applicants_jobs.Add(applicant_job);
 
-            Accepted notyet = new Accepted() { Date = DateTime.Now, Extra = "0",JobId = job.JobId,ApplicantId = applicant.ApplicantId};
+            Accepted notyet = new Accepted() { Date = DateTime.Now, Extra = "0", JobId = job.JobId, ApplicantId = applicant.ApplicantId };
             _context.accepted.Add(notyet);
 
             _context.SaveChanges();
@@ -138,7 +138,7 @@ namespace Final_Project.Controllers
         public IActionResult MyApplies()
         {
             var applicant = _context.applicants.FirstOrDefault(e => e.EmailAddress == TempData.Peek("abdo"));
-            var jobss = _context.applicants_jobs.Include(j => j.Job).Include(j=>j.Job.Company)
+            var jobss = _context.applicants_jobs.Include(j => j.Job).Include(j => j.Job.Company)
                 .Where(a => a.ApplicantId == applicant.ApplicantId).ToList();
             return View(jobss);
         }
@@ -149,6 +149,16 @@ namespace Final_Project.Controllers
                 .Where(a => a.ApplicantId == applicant.ApplicantId).ToList();
             return View(courses);
 
+        }
+        public IActionResult notification()
+        {
+            var applicant = _context.applicants.FirstOrDefault(e => e.EmailAddress == TempData.Peek("abdo"));
+            var accepted = _context.accepted
+                .Include(a => a.Applicant)
+                .Include(j=>j.Job)
+                .ThenInclude(c=>c.Company)
+                .Where(i => i.ApplicantId == applicant.ApplicantId).ToList();
+            return PartialView(accepted);
         }
     }
 }

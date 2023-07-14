@@ -185,19 +185,19 @@ namespace Final_Project.Controllers
         public IActionResult Appliers()
         {
             var company = _context.companies.FirstOrDefault(e => e.EmailAddress == TempData.Peek("abdo"));
-            var jobs = _context.jobs.Where(e => e.CompanyId == company.CompanyId).ToList();
+            //var jobs = _context.jobs.Where(e => e.CompanyId == company.CompanyId).ToList();
 
-            List<Applicant_Job> apps_jobs = new List<Applicant_Job>();
+            //List<Applicant_Job> apps_jobs = new List<Applicant_Job>();
 
-            string[] arr = new string[apps_jobs.Count];
+            //string[] arr = new string[apps_jobs.Count];
 
-            foreach (var job in jobs)
-            {
-                apps_jobs = _context.applicants_jobs.Include(j => j.Job).Where(a => a.JobId == job.JobId).ToList();
-                arr.Append(job.Jop_Title);
-            }
-            ViewBag.bola = new List<string>();
-                ViewBag.bola = arr;
+            //foreach (var job in jobs)
+            //{
+            //    apps_jobs = _context.applicants_jobs.Include(j => j.Job).Where(a => a.JobId == job.JobId).ToList();
+            //    arr.Append(job.Jop_Title);
+            //}
+            //ViewBag.bola = new List<string>();
+            //    ViewBag.bola = arr;
             var applicants = _context.applicants_jobs
                 .Include(a => a.Applicant)
                 .Include(a => a.Job)
@@ -209,19 +209,19 @@ namespace Final_Project.Controllers
         public IActionResult Filterbyjobtilte(string word)
         {
             var company = _context.companies.FirstOrDefault(e => e.EmailAddress == TempData.Peek("abdo"));
-            var jobs = _context.jobs.Where(e => e.CompanyId == company.CompanyId).ToList();
+            //var jobs = _context.jobs.Where(e => e.CompanyId == company.CompanyId).ToList();
 
-            List<Applicant_Job> apps_jobs = new List<Applicant_Job>();
+            //List<Applicant_Job> apps_jobs = new List<Applicant_Job>();
 
-            string[] arr = new string[apps_jobs.Count];
+            //string[] arr = new string[apps_jobs.Count];
 
-            foreach (var job in jobs)
-            {
-                apps_jobs = _context.applicants_jobs.Include(j => j.Job).Where(a => a.JobId == job.JobId).ToList();
-                arr.Append(job.Jop_Title);
-            }
-            ViewBag.bola = new List<string>();
-            ViewBag.bola = arr;
+            //foreach (var job in jobs)
+            //{
+            //    apps_jobs = _context.applicants_jobs.Include(j => j.Job).Where(a => a.JobId == job.JobId).ToList();
+            //    arr.Append(job.Jop_Title);
+            //}
+            //ViewBag.bola = new List<string>();
+            //ViewBag.bola = arr;
             var applicants = _context.applicants_jobs
                 .Include(a => a.Applicant)
                 .Include(a => a.Job)
@@ -241,19 +241,19 @@ namespace Final_Project.Controllers
         public IActionResult Filterbyapplicanttilte(string word)
         {
             var company = _context.companies.FirstOrDefault(e => e.EmailAddress == TempData.Peek("abdo"));
-            var jobs = _context.jobs.Where(e => e.CompanyId == company.CompanyId).ToList();
+            //var jobs = _context.jobs.Where(e => e.CompanyId == company.CompanyId).ToList();
 
-            List<Applicant_Job> apps_jobs = new List<Applicant_Job>();
+            //List<Applicant_Job> apps_jobs = new List<Applicant_Job>();
 
-            string[] arr = new string[apps_jobs.Count];
+            //string[] arr = new string[apps_jobs.Count];
 
-            foreach (var job in jobs)
-            {
-                apps_jobs = _context.applicants_jobs.Include(j => j.Job).Where(a => a.JobId == job.JobId).ToList();
-                arr.Append(job.Jop_Title);
-            }
-            ViewBag.bola = new List<string>();
-            ViewBag.bola = arr;
+            //foreach (var job in jobs)
+            //{
+            //    apps_jobs = _context.applicants_jobs.Include(j => j.Job).Where(a => a.JobId == job.JobId).ToList();
+            //    arr.Append(job.Jop_Title);
+            //}
+            //ViewBag.bola = new List<string>();
+            //ViewBag.bola = arr;
             var applicants = _context.applicants_jobs
                 .Include(a => a.Applicant)
                 .Include(a => a.Job)

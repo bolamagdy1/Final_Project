@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Final_Project.Models.Accepted>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Extra)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Job.Jop_Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Job.Company.CompanyName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Extra)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.Job.Jop_Title)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.Job.Company.CompanyName)
+            </td>
+            @*<td>
+                <a asp-action="Edit" asp-route-id="@item.AcceptedId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.AcceptedId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.AcceptedId">Delete</a>
+            </td>*@
+        </tr>
+}
+    </tbody>
+</table>
