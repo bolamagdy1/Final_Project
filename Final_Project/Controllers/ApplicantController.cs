@@ -149,7 +149,6 @@ namespace Final_Project.Controllers
             var courses = _context.As_Cs.Include(j => j.Course).Include(j => j.Applicant)
                 .Where(a => a.ApplicantId == applicant.ApplicantId).ToList();
             return View(courses);
-
         }
         [HttpGet]
         public IActionResult notification()
