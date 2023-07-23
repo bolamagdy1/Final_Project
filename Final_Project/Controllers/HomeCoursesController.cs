@@ -41,7 +41,7 @@ namespace Final_Project.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult CreateCourse(Course course,IFormCollection formFile)
+        public async Task<IActionResult> CreateCourseAsync(Course course,IFormCollection formFile)
         {
             string target_folder = "wwwroot/Server/";
 
@@ -50,7 +50,7 @@ namespace Final_Project.Controllers
 
             using (Stream fileStream = new FileStream(path, FileMode.Create))
             {
-                formFile.Files[0].CopyToAsync(fileStream);
+                await formFile.Files[0].CopyToAsync(fileStream);
             }
             course.Image = _FileName1;
 
