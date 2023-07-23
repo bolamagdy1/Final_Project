@@ -8,6 +8,8 @@ namespace Final_Project
 {
     public class Program
     {
+        public static object AppDbInitializer { get; private set; }
+
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
@@ -66,8 +68,7 @@ namespace Final_Project
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
-
-            AppDbInitializer.SeedRolesToDatabase(app).Wait();
+            //AppDbInitializer.SeedRolesToDatabase(app).Wait();
 
             app.Run();
 
