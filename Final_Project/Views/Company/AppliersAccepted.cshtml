@@ -78,7 +78,7 @@
         {
             <table class="card-table table-hover ">
                 <tr>
-                    <th colspan="7" class="card-title">@job.Jop_Title</th>
+                    <th colspan="6" class="card-title">@job.Jop_Title</th>
                 </tr>
                 <tr>
                     <th>Image</th>
@@ -87,7 +87,7 @@
                     <th>CV</th>
                     <th>Age</th>
                     <th>Phone</th>
-                    <th>Actions</th>
+                    @*<th>Actions</th>*@
                 </tr>
                 @foreach (var applicantJob in group)
                 {
@@ -100,7 +100,7 @@
                         <td> <a href="~/Server/CVs/@applicantJob.Applicant.CV" download="">CV <i class="fa fa-download" aria-hidden="true"></i></a></td>
                         <td>@applicantJob.Applicant.Age</td>
                         <td>@applicantJob.Applicant.Phone</td>
-                        <td>
+@*                        <td>
                             <div class="card-actions">
                                 <a class="btn btn-info" href="mailto:@applicantJob.Applicant.EmailAddress">Mail</a>
                                 <a class="btn btn-success" href="@Url.Action("accepting", new { id = applicantJob.Applicant.ApplicantId })">Accept</a>
@@ -108,7 +108,7 @@
                                 <a style="float:right" class="btn btn-danger" href="@Url.Action("CreateMeeting","Zoom")">Create Meeting</a>
 
                             </div>
-                        </td>
+                        </td>*@
                     </tr>
                 }
             </table>

@@ -97,12 +97,12 @@
             @foreach (var item in Model)
     {
             <div class="card  bg-light">
-                <div class="card-logo">
+                <div class="card-logo" style="height:180px">
                     <img src="@Url.Content("~/Server/Course_Images/"+item.Image)" alt="Logo">
                 </div>
                 <div class="card-details">
                     <h3>Course Name:  @item.CourseName</h3>
-                    <h4>Description:  @item.CourseDescription</h4>
+                    <p><h3>Description:</h3>  @item.CourseDescription</p>
                     <p><h3>Course Content: </h3>  @item.Content</p>
                 </div>
                 <div class="card-actions">

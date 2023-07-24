@@ -4,12 +4,24 @@
     ViewData["Title"] = "notification";
 }
 
-<h1>notification</h1>
+<style>
+    .card-table {
+        border-collapse: collapse;
+        width: 100%;
+        text-align:center;
+    }
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+        .card-table th,
+        .card-table td {
+            border: 1px solid black;
+            padding: 10px;
+        }
+
+</style>
+<div class="row mt-4" >
+    <div class="col-md-1"></div>
+    <div class="table-container col-md-10 ">
+        <table class="card-table table-hover">
     <thead>
         <tr>
             <th>
@@ -24,7 +36,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Applicant)
             </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -51,3 +62,7 @@
 }
     </tbody>
 </table>
+</div>
+    <div class="col-md-1"></div>
+
+</div>

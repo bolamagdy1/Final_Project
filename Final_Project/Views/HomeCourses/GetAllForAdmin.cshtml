@@ -21,8 +21,9 @@
 
     .card-logo img {
         width: 100%;
-        height: 100%;
+        height: 250px;
         margin-bottom: 15px;
+        display:inline-block;
     }
 
     .card-logo  {
@@ -48,9 +49,9 @@
 <div class="card-container">
     @foreach (var item in Model)
     {
-        <div class="card  bg-light">
-            <div class="card-logo">
-                <img src="@Url.Content("~/Server/Course_Images/"+item.Image)" alt="Logo">
+        <div class="card  bg-light" >
+            <div style="height:180px">
+                <img class="card-img-top h-100" src="@Url.Content("~/Server/Course_Images/"+item.Image)" alt="Logo">
             </div>
             <div class="card-details">
                 <h3>Course Name:  @item.CourseName</h3>

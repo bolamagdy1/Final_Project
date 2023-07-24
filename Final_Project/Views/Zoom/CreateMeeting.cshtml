@@ -3,13 +3,20 @@
 @{
     ViewData["Title"] = "CreateMeeting";
 }
+<style>
+    .custom-form {
+        margin: 0 auto;
+        padding: 40px;
+        color: black;
+        border-radius: 5px;
+    }
+</style>
+    
+    <div class="row mt-4">
+    <div class="col-md-1 mr-3"></div>
 
-<h1>Create Meeting</h1>
-<hr />
-<div class="container">
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="CreateMeeting">
+    <div class="col-md-4 ml-3 mt-2 rounded bg-light">
+        <form asp-action="CreateMeeting" class="custom-form bg-light">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Topic" class="control-label"></label>
@@ -41,7 +48,10 @@
             </div>
         </form>
     </div>
-</div>
+    <div class="col-md-1 mr-3"></div>
+        <div class="col-md-4 mr-3 mt-5">
+        <img src="https://img.freepik.com/premium-vector/interview-concept-professional-job-interview-business-people-work-man-businessman-design-flat-style-vector-illustration_169479-3825.jpg?w=1060" />
+        </div>
 </div>
 
 @section Scripts {

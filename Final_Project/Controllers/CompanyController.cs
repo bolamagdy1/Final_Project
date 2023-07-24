@@ -368,7 +368,7 @@ namespace Final_Project.Controllers
             }
 
             //acceptedApplicants 
-            return View("Appliers", applicant_jobs);
+            return View("AppliersAccepted", applicant_jobs);
 
             //var acceptedlist = _context.applicants.Where(j=>j)
         }
@@ -405,7 +405,7 @@ namespace Final_Project.Controllers
             }
 
             //acceptedApplicants 
-            return View("Appliers", applicant_jobs);
+            return View("AppliersAccepted", applicant_jobs);
 
             //var acceptedlist = _context.applicants.Where(j=>j)
         }

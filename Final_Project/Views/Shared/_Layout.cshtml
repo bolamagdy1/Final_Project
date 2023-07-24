@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="~/css/owl.carousel.min.css">
     <link rel="stylesoeet" href="~/css/owl.theme.default.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+  
 </head>
 <body>
     <header>
@@ -148,19 +149,21 @@
             </div>
         </nav>
     </header>
-        <main role="main" >
+    <main role="main">
             @RenderBody()
         </main>
-    <div class="footer_section">
+    <footer class="text-center text-lg-start bg-light text-muted">
+    <div class="footer_section" >
         <div style="text-align:center" class="container">
             
             <h1 class="subscribr_text">Contact Us</h1>
-            <h4 style="color:white">JE Journey@gmail.com</h4>
+            <a class="h5" href="mailto:JE_Journey@gmail.com" style="color:white">JE Journey@gmail.com</a>
             @*<div class="apply_bt">Join now</div>*@
             <p class="lorem_text">“Start where you are. Use what you have. Do what you can.” </p>
         </div>
     </div>
-    <div class="copyright_section">
+    </footer>
+@*    <div class="copyright_section">
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
@@ -171,7 +174,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>*@
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
