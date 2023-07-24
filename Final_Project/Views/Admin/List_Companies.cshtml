@@ -54,11 +54,23 @@
                 <a href="@Url.Action("Approve", new { id = item.CompanyId })" class="btn btn-outline-info "><i class="fa fa-check" aria-hidden="true"> </i></a>
                 
                 @*<a href="@Url.Action("Details", new { id = item.CompanyId })" class="btn btn-secondary">Details</a>*@
-                <a href="@Url.Action("Delete", new { id = item.CompanyId })" class="btn btn-outline-danger">
+                @*<a href="@Url.Action("Delete", new { id = item.CompanyId })" class="btn btn-outline-danger">
                     <i class="fa fa-trash-o" aria-hidden="true"></i>
 
-                </a>
+                </a>*@
+                <a onclick="javascript: return SubmitForm();" href="@Url.Action("Delete", new { id = item.CompanyId })" class="btn btn-outline-danger"> <i class="fa fa-trash-o" aria-hidden="true"></i></a>
+
             </div>
         </div>
     }
 </div>
+<script>
+    function SubmitForm() {
+        var r = confirm("Are you sure you want to Delete?");
+        if (r == false) {
+            return false;
+        }
+        // do something
+        return true;
+    }
+</script>
