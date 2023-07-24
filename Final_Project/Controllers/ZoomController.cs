@@ -109,7 +109,7 @@ namespace Final_Project.Controllers
 
             RestRequest restRequest = new RestRequest();
             restRequest.AddHeader("Content-Type", "application/json");
-            restRequest.AddHeader("Authorization", "Bearer eyJzdiI6IjAwMDAwMSIsImFsZyI6IkhTNTEyIiwidiI6IjIuMCIsImtpZCI6ImI1ZDk1ZDEyLTk2NjYtNDVmNC1hMzNlLTkzNGY2MTZkYmE5MCJ9.eyJ2ZXIiOjksImF1aWQiOiI1NmU5MmM2ZmY4NGUyYmEyYmZjMTljZjM2MDA3NTY5MiIsImNvZGUiOiJ6eEhoSHp0SUdIczA1UlpaaFNGUnlhOUlMNjd4bm54eWciLCJpc3MiOiJ6bTpjaWQ6ZHdCT3VvVGFTdDJBc2pYZGpDTDJ3IiwiZ25vIjowLCJ0eXBlIjowLCJ0aWQiOjEwLCJhdWQiOiJodHRwczovL29hdXRoLnpvb20udXMiLCJ1aWQiOiJja3RUTXFmZlQxdUxwaEQ2bW1XR1FBIiwibmJmIjoxNjkwMTg0NTI3LCJleHAiOjE2OTAxODgxMjcsImlhdCI6MTY5MDE4NDUyNywiYWlkIjoiRVlBcXdDbUZSczJtMnp4N1U4VGhVQSJ9.lITKPJkPWJfzCKHyDJ0-GoljBycZ3x6oa0IB-YcmcKAY0a0Q2K7c_3F2E3Xutl8EdAd0ZBllbP4ArCp7MItgfg");
+            restRequest.AddHeader("Authorization", "Bearer eyJzdiI6IjAwMDAwMSIsImFsZyI6IkhTNTEyIiwidiI6IjIuMCIsImtpZCI6IjQzZTBmNjRiLWRhMTAtNDZmMC04ZGE5LWVjNWE4N2NkNzA3MiJ9.eyJ2ZXIiOjksImF1aWQiOiI1NmU5MmM2ZmY4NGUyYmEyYmZjMTljZjM2MDA3NTY5MiIsImNvZGUiOiJ6eEhoSHp0SUdIczA1UlpaaFNGUnlhOUlMNjd4bm54eWciLCJpc3MiOiJ6bTpjaWQ6ZHdCT3VvVGFTdDJBc2pYZGpDTDJ3IiwiZ25vIjowLCJ0eXBlIjowLCJ0aWQiOjExLCJhdWQiOiJodHRwczovL29hdXRoLnpvb20udXMiLCJ1aWQiOiJja3RUTXFmZlQxdUxwaEQ2bW1XR1FBIiwibmJmIjoxNjkwMjM2NzIyLCJleHAiOjE2OTAyNDAzMjIsImlhdCI6MTY5MDIzNjcyMiwiYWlkIjoiRVlBcXdDbUZSczJtMnp4N1U4VGhVQSJ9.rddIc25lNa6YFFAI-abJHPghrXXtYG7CbzYSQYoqFKzCpELVAaiyCzxukVLGnuq23T-47ziwJs6uHfIARrtLKw");
             restRequest.AddParameter("application/json", model, ParameterType.RequestBody);
             //restRequest.AddBody(model);
 
