@@ -102,6 +102,13 @@ namespace Final_Project.Controllers
                 .Where(a => a.ApplicantId == applicant.ApplicantId).ToList();
             return View(Course);
         }
-        
+        public IActionResult Delete(int id)
+        {
+            var course = _context.courses.FirstOrDefault(i => i.CourseId == id);
+            _context.courses.Remove(course);
+            _context.SaveChanges();
+            return RedirectToAction("GetAllForAdmin");
+        }
+
     }
 }

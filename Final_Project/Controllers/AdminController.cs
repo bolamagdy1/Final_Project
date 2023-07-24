@@ -29,5 +29,12 @@ namespace Final_Project.Controllers
             _context.SaveChanges();
             return RedirectToAction("List_Companies");
         }
-    }
+		public IActionResult Delete(int id)
+		{
+			var company = _context.companies.FirstOrDefault(i => i.CompanyId == id);
+			_context.companies.Remove(company);
+			_context.SaveChanges();
+			return RedirectToAction("List_Companies");
+		}
+	}
 }

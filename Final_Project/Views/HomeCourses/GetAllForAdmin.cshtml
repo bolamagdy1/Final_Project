@@ -60,11 +60,23 @@
             <div class="card-actions  btn-group justify-content-center">
                 <a asp-action="Edit" asp-route-id="@item.CourseId" class="btn btn-outline-success"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a> 
                 @*<a asp-action="Details" asp-route-id="@item.CourseId" class="btn btn-info">Details</a> |*@
-                <a asp-action="Delete" asp-route-id="@item.CourseId" class="btn btn-outline-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                @*<a asp-action="Delete" asp-route-id="@item.CourseId" class="btn btn-outline-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>*@
+                <a onclick="javascript: return SubmitForm();" href="@Url.Action("Delete", new { id = item.CourseId })" class="btn btn-outline-danger"> <i class="fa fa-trash-o" aria-hidden="true"></i></a>
+
             </div>
         </div>
     }
 </div>
+<script>
+    function SubmitForm() {
+        var r = confirm("Are you sure you want to Delete?");
+        if (r == false) {
+            return false;
+        }
+        // do something
+        return true;
+    }
+</script>
 @*<p>
     <a asp-action="CreateCourse" asp-controller="HomeCourses">Create New</a>
 </p>*@

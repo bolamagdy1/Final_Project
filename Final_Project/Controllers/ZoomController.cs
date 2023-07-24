@@ -109,7 +109,7 @@ namespace Final_Project.Controllers
 
             RestRequest restRequest = new RestRequest();
             restRequest.AddHeader("Content-Type", "application/json");
-            restRequest.AddHeader("Authorization", "Bearer eyJzdiI6IjAwMDAwMSIsImFsZyI6IkhTNTEyIiwidiI6IjIuMCIsImtpZCI6IjAyMzc5NTNlLTIyMGQtNDM4YS1hNzNjLTBmMjg0YmYzM2EwZCJ9.eyJ2ZXIiOjksImF1aWQiOiI1NmU5MmM2ZmY4NGUyYmEyYmZjMTljZjM2MDA3NTY5MiIsImNvZGUiOiJ6eEhoSHp0SUdIczA1UlpaaFNGUnlhOUlMNjd4bm54eWciLCJpc3MiOiJ6bTpjaWQ6ZHdCT3VvVGFTdDJBc2pYZGpDTDJ3IiwiZ25vIjowLCJ0eXBlIjowLCJ0aWQiOjksImF1ZCI6Imh0dHBzOi8vb2F1dGguem9vbS51cyIsInVpZCI6ImNrdFRNcWZmVDF1THBoRDZtbVdHUUEiLCJuYmYiOjE2ODkxNTc4MTcsImV4cCI6MTY4OTE2MTQxNywiaWF0IjoxNjg5MTU3ODE3LCJhaWQiOiJFWUFxd0NtRlJzMm0yeng3VThUaFVBIn0.mlQwekLMYl0Otj6AEm7A2jnaew1wcmXiT-sNnWhwDDZLUftlKn4PlDiVuRxwkejoVBw_pU_43-C-xaOcFbTRAg");
+            restRequest.AddHeader("Authorization", "Bearer eyJzdiI6IjAwMDAwMSIsImFsZyI6IkhTNTEyIiwidiI6IjIuMCIsImtpZCI6ImI1ZDk1ZDEyLTk2NjYtNDVmNC1hMzNlLTkzNGY2MTZkYmE5MCJ9.eyJ2ZXIiOjksImF1aWQiOiI1NmU5MmM2ZmY4NGUyYmEyYmZjMTljZjM2MDA3NTY5MiIsImNvZGUiOiJ6eEhoSHp0SUdIczA1UlpaaFNGUnlhOUlMNjd4bm54eWciLCJpc3MiOiJ6bTpjaWQ6ZHdCT3VvVGFTdDJBc2pYZGpDTDJ3IiwiZ25vIjowLCJ0eXBlIjowLCJ0aWQiOjEwLCJhdWQiOiJodHRwczovL29hdXRoLnpvb20udXMiLCJ1aWQiOiJja3RUTXFmZlQxdUxwaEQ2bW1XR1FBIiwibmJmIjoxNjkwMTg0NTI3LCJleHAiOjE2OTAxODgxMjcsImlhdCI6MTY5MDE4NDUyNywiYWlkIjoiRVlBcXdDbUZSczJtMnp4N1U4VGhVQSJ9.lITKPJkPWJfzCKHyDJ0-GoljBycZ3x6oa0IB-YcmcKAY0a0Q2K7c_3F2E3Xutl8EdAd0ZBllbP4ArCp7MItgfg");
             restRequest.AddParameter("application/json", model, ParameterType.RequestBody);
             //restRequest.AddBody(model);
 
